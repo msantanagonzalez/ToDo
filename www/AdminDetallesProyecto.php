@@ -5,6 +5,7 @@
 	Validar_Sesion();
 	$admin = new Admin;
 	$nav = new Nav;
+	$proyecto = $_GET['proyecto'];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -35,7 +36,7 @@
 					<div id="content">
 						<div class="inner">
 							<!--INICIO SECCIÓN-->
-									<header> <p> <div> <h1 id="logo"><a>- $nombreProyecto -</a></h1> </div></p></header>
+									<h1 id="logo"><a>- <?php echo $proyecto ?> -</a></h1>
 										<!--INICIO TABLA-->
                                         	<table class="default">
                                             <tr>
