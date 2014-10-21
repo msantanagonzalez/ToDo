@@ -5,6 +5,7 @@
 	Validar_Sesion();
 	$admin = new Admin;
 	$nav = new Nav;
+	$proyecto = $_GET['proyecto']
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -18,7 +19,6 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/initAdmin.js"></script>
-		<script src="js/Validaciones.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -35,7 +35,7 @@
 					<div id="content">
 						<div class="inner">
 							<!--INICIO SECCIÓN-->
-									<header> <p> <div> <h1 id="logo"><a>- $nombreProyecto -</a></h1> </div></p></header>
+									<header> <p> <div> <h1 id="logo"><a>- <?php echo $proyecto ?> -</a></h1> </div></p></header>
 										<!--INICIO TABLA-->
                                         	<table class="default">
                                             <tr>
@@ -61,7 +61,7 @@
 
 				<!-- INICIO BARRA LATERAL -->
 					<?php
-						$nav->NavAdmin($_SESSION["ID_Usuario"]);
+						$nav->NavAdmin();
 					?>
 				<!-- FIN BARRA LATERAL -->
 			</div>

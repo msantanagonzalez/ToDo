@@ -18,7 +18,6 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/initAdmin.js"></script>
-		<script src="js/Validaciones.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -63,7 +62,7 @@
 
 				<!-- INICIO BARRA LATERAL -->
 					<?php
-						$nav->NavAdmin($_SESSION["ID_Usuario"]);
+						$nav->NavAdmin();
 					?>
 				<!-- FIN BARRA LATERAL -->
 			</div>
