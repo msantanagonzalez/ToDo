@@ -40,10 +40,11 @@
                                         <!--INICIO TABLA-->
                                         	<table class="default">
                                             <tr>
-                                            	<th width='25%'>Título</th>
-                                            	<th width='25%'>Nº de tareas</th>
-                                               	<th width='25%'>Prioridad</th>
-                                                <th width='25%'>Editar</th>
+                                            	<th width='20%'>Título</th>
+                                                <th width='20%'>Usuario</th>
+                                            	<th width='20%'>Nº de tareas</th>
+                                               	<th width='20%'>Prioridad</th>
+                                                <th width='20%'>Editar</th>
                                                 
                                             </tr>
                                             </table>

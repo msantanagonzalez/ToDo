@@ -38,6 +38,7 @@
 					<br>
 					<div style="height:350px;width:auto;overflow-y: scroll;">
                     	<table class="default">
+                        
                         	<?php
                             	$admin->Editar_Proyecto();
 							?>

@@ -26,7 +26,7 @@ function __construct($Nombre_Proyecto, $ID_Proyecto, $Prioridad_Proyecto)
 {
     $this->Nombre_Proyecto			= $Nombre_Proyecto;
 	$this->ID_Usuario				= $ID_Usuario;
-	$this->Prioridad_Proyecto			=$Prioridad_Proyecto;
+	$this->Prioridad_Proyecto		= $Prioridad_Proyecto;
     
 }
 
