@@ -17,6 +17,7 @@ class Nav{
 									<li style='width:100%'>
 										<input type='text' class='text' name='Palabra' placeholder='Buscar...' />
 											<ul style='width:100%'>
+												<input type='text' class='text' name='Prioridad' placeholder='Usuario' />
 												<input type='text' class='text' name='Prioridad' placeholder='Prioridad' />
 												<input type='text' class='text' name='Proyecto' placeholder='Proyecto' />
 												<input type='date' name='Fecha' />
