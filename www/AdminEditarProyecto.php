@@ -36,13 +36,10 @@
                	  <h1 id="logo"><a>- <?php echo 'EDITAR ' . $proyecto ?> -</a></h1> <!--SECCIÓN-->
                 	<!--INICIO TABLA-->
 					<br>
-					<div style="height:350px;width:auto;overflow-y: scroll;">
-                    	<table class="default">
-                        
+					<div style="height:350px;width:auto;overflow-y: scroll;">                        
                         	<?php
                             	$admin->Editar_Proyecto();
 							?>
-                    	</table>
 					<!-- FIN TABLA -->
                     
 				</div>
