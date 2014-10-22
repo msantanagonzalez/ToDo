@@ -113,8 +113,8 @@ class Admin{
 			$busqueda = $_POST['busqueda'];
 		}
 	//-------------------------------------------------LISTAR USUARIOS--------------------------------------------
-		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario LIKE '%'.$busqueda.'%' ORDER BY ID_Usuario");
-		while($row = mysql_fetch_array($result)){
+		$resultU = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario LIKE '%$busqueda%' ORDER BY ID_Usuario");
+		while($row = mysql_fetch_array($resultU)){
 			echo "<tr>";
 				echo "<td width='25%'>" . "<a href='AdminPerfil.php'>" . $row['Nombre_Usuario'] . "</td>";
 				echo "<td width='25%'>" . $row['Provincia_Usuario'] . "</td>";
@@ -124,8 +124,8 @@ class Admin{
 		}
 	
 	//--------------------------------------------------LISTAR TAREAS----------------------------------------------
-		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea LIKE '%'.$busqueda.'%' ORDER BY Prioridad_Tarea");
-		while($row = mysql_fetch_array($result)){
+		$resultT = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea LIKE '%$busqueda%' ORDER BY Prioridad_Tarea");
+		while($row = mysql_fetch_array($resultT)){
 			echo "<tr>";
 				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php'>" . $row['Nombre_Tarea'] . "</td>";
 				echo "<td width='20%'>" . $row['ID_Usuario'] . "</td>";
@@ -136,8 +136,8 @@ class Admin{
 		}
 	
 	//-------------------------------------------------LISTAR PROYECTOS----------------------------------------------
-		$result = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p WHERE Nombre_Proyecto LIKE '%'.$busqueda.'%' ORDER BY p.Prioridad_Proyecto");
-		while($row = mysql_fetch_array($result)){
+		$resultP = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p WHERE Nombre_Proyecto LIKE '%$busqueda%' ORDER BY p.Prioridad_Proyecto");
+		while($row = mysql_fetch_array($resultP)){
 			echo "<tr>";
 				echo "<td width='20%'>" . "<a href='AdminDetallesProyecto.php?proyecto=$row[0]&usuario=$row[1]'/>" . $row[0] . "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
