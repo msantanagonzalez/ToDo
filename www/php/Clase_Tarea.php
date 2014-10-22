@@ -79,12 +79,14 @@ if ( $Estado_Tarea !== NULL )
 							$resultado=mysql_query($sql) or die(mysql_error());
 							while($row = mysql_fetch_array($resultado))
 							{
+							 echo "<form action='EditarTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'' method='post'>";
 								echo "<tr>"; 
 								echo "<td width='25%'>
 	<a href='DetallesTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'>"; 
 								echo  $row['Nombre_Tarea'] ;
 								echo "</a></td>";
-                            	echo "<td width='25%'><a href='DetallesProyecto.php'>";
+                            	echo "<td width='25%'>
+	<a href='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."'>";
 								echo $row['Nombre_Proyecto'];
 								echo "</a></td>";
 								echo "<td width='25%'>";
@@ -106,9 +108,10 @@ if ( $Estado_Tarea !== NULL )
 									echo "Sin prioridad";
 								}
 								echo "</a></td>";
-								echo "<td width='25%'>" . "<form action='EditarTarea.php' method='post'>" . "<button type='submit' name='Editar_Tarea'>" . "Editar" . "</button>" . "</form>" . "</td>";
+								echo "<td width='25%'><button type='submit' name='accion'>Editar</button></td>";
 								echo "</a></td>";
                        		echo "</tr>";
+							echo "</form>";
 							}
 }
 else
@@ -118,10 +121,12 @@ else
 							while($row = mysql_fetch_array($resultado))
 							{
 								echo "<tr>"; 
-								echo "<td width='20%'><a href='DetallesTarea.php'>"; 
+								echo "<td width='20%'>
+		<a href='DetallesTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'>"; 
 								echo  $row['Nombre_Tarea'] ;
 								echo "</a></td>";
-                            	echo "<td width='20%'><a href='DetallesProyecto.php'>";
+                            	echo "<td width='20%'>
+		<a href='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."'>";
 								echo $row['Nombre_Proyecto'];
 								echo "</a></td>";
 								echo "<td width='20%'>";

@@ -138,7 +138,7 @@ $nav = new Nav;
                       		</tr>
                    		</table>
                 	</div> <br>
-                    	<div align="center">* Este a sido el resultado para la búsqueda: <em>$clavesDeBusquedaIntroducidas</em>.</div>
+                    	<div align="center">* Este ha sido el resultado para la búsqueda: <em>$clavesDeBusquedaIntroducidas</em>.</div>
                     
 				</div>
 			</div>

@@ -148,8 +148,10 @@ $sql = "select * from Proyecto where ID_Usuario = '$ID_Usuario' order by Priorid
 $resultado=mysql_query($sql) or die(mysql_error());
 while($row = mysql_fetch_array($resultado))
 							{
+							echo "<form action='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."' method='post'>";
 								echo "<tr>"; 
-                            	echo "<td width='20%'><a href='DetallesProyecto.php'>";
+                            	echo "<td width='20%'>
+<a href='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."'>";
 								echo $row['Nombre_Proyecto'];
 								echo "</a></td>";
 								echo "<td width='20%'>";
@@ -168,9 +170,10 @@ while($row = mysql_fetch_array($resultado))
 									echo "Sin prioridad";
 								}
 								echo "</td>";
-								echo "<td width='20%'>" . "<form action='EditarProyecto.php' method='post'>" . "<button type='submit' name='Editar_Proyecto'>" . "Editar" . "</button>" . "</form>" . "</td>";
+								echo "<td width='20%'><button type='submit' name='accion'>Editar</button></td>";
 								echo "</td>";
                        		echo "</tr>";
+							echo "</form>";
 							}
 }
 
