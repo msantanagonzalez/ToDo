@@ -173,7 +173,7 @@ function Consultar_Usuario($ID_Usuario)
 					<table class='default'>
 						<tr> 
 						<td>USUARIO:</td> 
-                         <td><input type='text' disabled class='text' value='".$row['ID_Usuario']."' / name='ID_Usuario'></td>
+                         <td><input type='text' disabled class='text' value='".$row['Nombre_Usuario']."' / name='Nombre_Usuario'></td>
                                	<td>CORREO:</td>
                               	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
                           	</tr>
@@ -213,21 +213,39 @@ function Consultar_Usuario($ID_Usuario)
 					</form> ";
 	
 }
-
 function Modificar_Usuario($ID_Usuario)
 {
     ConectarDB();
+		
+		if(isset($_POST['accion'])){
+	
+					$sql = "UPDATE Usuario SET Email_Usuario='".$_POST['Email_Usuario']."',
+					Apellido1_Usuario='".$_POST['Apellido1_Usuario']."',
+					Apellido2_Usuario='".$_POST['Apellido2_Usuario']."',
+					Calle_Usuario='".$_POST['Calle_Usuario']."',
+					N_Portal_Usuario='".$_POST['N_Portal_Usuario']."',
+					Provincia_Usuario='".$_POST['Provincia_Usuario']."',
+					CP_Usuario='".$_POST['CP_Usuario']."',
+					Fecha_Nacimiento='".$_POST['Fecha_Nacimiento']."'
+					WHERE ID_Usuario = '".$ID_Usuario."'" ;
+				$resultado = mysql_query($sql) or die(mysql_error());
+				}
+			
+	
     $sql = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
     $resultado = mysql_query($sql) or die(mysql_error());
 	$row = mysql_fetch_array($resultado) or die(mysql_error());
-	echo "<form name='FormModificar_Usuario' id='FormModificar_Usuario' method='post' action='php/Clase_Usuario.php'>
+	
+	//
+	echo "<form name='FormModificar_Usuario' id='FormModificar_Usuario' method='post' action='EditarPerfil.php' ';
+		>
 					<div style='height:350px;width:auto;overflow-y: scroll;'>
 					<table class='default'>
 						<tr> 
 						<td>USUARIO:</td> 
-                         <td><input type='text' disabled class='text' value='".$row['ID_Usuario']."' / name='ID_Usuario'></td>
+                         <td><input type='text' disabled class='text' value='".$row['Nombre_Usuario']."' / name='Nombre_Usuario'></td>
                                	<td>CORREO:</td>
-                              	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
+                              	<td><input type='text' class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
                           	</tr>
                            	<tr>
                              	<td>APELLIDO1:</td>
@@ -239,7 +257,7 @@ function Modificar_Usuario($ID_Usuario)
                                	<td>CALLE:</td>
                               	<td><input type='text' class='text' value='".$row['Calle_Usuario']."'/ name='Calle_Usuario'></td>
 								<td>PORTAL:</td>
-                               	<td><input type='text' class='text' value='".$row['N_Portal_Usuario']."'/ name='Portal_Usuario'></td>
+                               	<td><input type='text' class='text' value='".$row['N_Portal_Usuario']."'/ name='N_Portal_Usuario'></td>
                                	
                        		</tr>
 							<tr>
@@ -263,8 +281,10 @@ function Modificar_Usuario($ID_Usuario)
 								<td width='25%'></td>
                           	</tr>
                       	</table>
-					</form> ";					
-}
+					</form> ";	
+		
+		    }
+			  
 
 function Guardar_Modificacion()
 {
