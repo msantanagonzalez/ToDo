@@ -126,7 +126,7 @@
 			input[type="button"].disabled,
 			input[type="submit"].disabled,
 			input[type="reset"].disabled,
-			.button.disabled{opacity: 0.35;	cursor: default;	}
+			.button.disabled{opacity: 0;	}
 			
 			input[type="button"]:hover,
 			input[type="submit"]:hover,

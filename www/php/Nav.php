@@ -11,13 +11,13 @@ class Nav{
                            	<li class='current'><a href='AdminGestorProyectos.php'>GESTIONAR PROYECTOS</a></li>
                            	<li class='current'><a href='AdminGestorTareas.php'>GESTIONAR TAREAS</a></li>
 							<li class='current'><a href='/php/Cerrar_Sesion.php' id='Logout_Usuario' onclick ='return Salir_Usuario()'>Log Out >]</a></li>
-                            <form method='post' action='Buscar' style='text-align:center'>
+                            <form method='post' action='ResultadosBusqueda.php' style='text-align:center'>
                         	<section class='box search'>
 								<ul class='desplegable'>
 									<li style='width:100%'>
 										<input type='text' class='text' name='Palabra' placeholder='Buscar...' />
 											<ul style='width:100%'>
-												<input type='text' class='text' name='Prioridad' placeholder='Usuario' />
+												<input type='text' class='text' name='Usuario' placeholder='Usuario' />
 												<input type='text' class='text' name='Prioridad' placeholder='Prioridad' />
 												<input type='text' class='text' name='Proyecto' placeholder='Proyecto' />
 												<input type='date' name='Fecha' />
@@ -25,6 +25,7 @@ class Nav{
 										</li>
 									</ul>
                       			</section>
+								<div hidden><input type='submit' name='Buscar' value='JA'/></div>
                             </form>
                       	</div>
 					</ul>
