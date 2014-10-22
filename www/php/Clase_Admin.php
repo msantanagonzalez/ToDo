@@ -113,6 +113,18 @@ class Admin{
 			$busqueda = $_POST['busqueda'];
 		}
 	//-------------------------------------------------LISTAR USUARIOS--------------------------------------------
+	
+	echo "<table class='default'><!--TABLA-->
+                       		<tr>
+                            	<th width='25%'>Usuario</th>
+                            	<th width='25%'>Provincia</th>
+                           		<th width='25%'>Email</th>
+                            	<th width='25%'>EDITAR</th>
+                     		</tr>
+                    	</table>
+                  	<div style='height:350px;width:auto;overflow-y: scroll;'>
+                   		<table class='default'>";
+						
 		$resultU = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario LIKE '%$busqueda%' ORDER BY ID_Usuario");
 		while($row = mysql_fetch_array($resultU)){
 			echo "<tr>";
@@ -122,8 +134,23 @@ class Admin{
 				echo "<td width='22%'>" . "<form action='../AdminEditarPerfil.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
+
+	echo "</table>";
+		
 	
 	//--------------------------------------------------LISTAR TAREAS----------------------------------------------
+	echo "<table class='default'><!--TABLA-->
+                       		<tr>
+                            	<th width='20%'>Tarea</th>
+                            	<th width='20%'>Usuario</th>
+                                <th width='20%'>Proyecto</th>
+                           		<th width='20%'>Prioridad</th>
+                            	<th width='20%'>EDITAR</th>
+                     		</tr>
+                    	</table>
+                  	<div style='height:350px;width:auto;overflow-y: scroll;'>
+                   		<table class='default'>";
+		
 		$resultT = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea LIKE '%$busqueda%' ORDER BY Prioridad_Tarea");
 		while($row = mysql_fetch_array($resultT)){
 			echo "<tr>";
@@ -134,8 +161,23 @@ class Admin{
 				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
+		
+	echo "</table>";	
 	
 	//-------------------------------------------------LISTAR PROYECTOS----------------------------------------------
+	echo
+	"<table class='default'>
+    	<tr>
+			<th width='20%'>Proyecto</th>
+			<th width='20%'>Usuario</th>
+			<th width='20%'>Nº Tareas</th>
+			<th width='20%'>Prioridad</th>
+			<th width='20%'>EDITAR</th>
+		</tr>
+ 	</table>
+   	<div style='height:170px; width:auto; overflow-y: scroll;'>
+  	<table class='default'>";	
+		
 		$resultP = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p WHERE Nombre_Proyecto LIKE '%$busqueda%' ORDER BY p.Prioridad_Proyecto");
 		while($row = mysql_fetch_array($resultP)){
 			echo "<tr>";
@@ -146,6 +188,10 @@ class Admin{
 				echo "<td width='17%'>" . "<form action='../AdminEditarProyecto.php?editarP=$row[0]&usuario=$row[1]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
+		
+	echo
+	"</table>";
+	
 	}
 }
 ?>
