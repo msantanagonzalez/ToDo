@@ -9,8 +9,8 @@ sudo apt-get install git
 Crear identidad para los commits 
          git config --global user.name "name"
 	 git config --global user.email name@example.com
-Download repository
-	git pull https://github.com/msantanagonzalez/ToDo_IU4L.git
+Download repository(ALL)
+	git clone https://github.com/msantanagonzalez/ToDo_IU4L.git	
 Start git on folder(Local)
         git init
 Add files to repository 
@@ -21,7 +21,8 @@ Upload version
         git push gc(name/alias) master https://github.com/msantanagonzalez/ToDo_IU4L.git
 
 
-
+UPDATE LOCAL REPOSITORY
+git pull https://github.com/msantanagonzalez/ToDo_IU4L.git	
 Notes:
 
 After making changes:
