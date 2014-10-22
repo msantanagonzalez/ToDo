@@ -5,7 +5,7 @@
 //Administrador: Admin_ToDo
 //Contraseña: Pass_ToDo
 //-------------------------------------------------------
-require 'FuncionesGenerales.php';
+require 'Clase_Proyecto.php';
 class Tarea
 {
 
@@ -80,7 +80,8 @@ if ( $Estado_Tarea !== NULL )
 							while($row = mysql_fetch_array($resultado))
 							{
 								echo "<tr>"; 
-								echo "<td width='25%'><a href='DetallesTarea.php'>"; 
+								echo "<td width='25%'>
+	<a href='DetallesTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'>"; 
 								echo  $row['Nombre_Tarea'] ;
 								echo "</a></td>";
                             	echo "<td width='25%'><a href='DetallesProyecto.php'>";
@@ -150,6 +151,75 @@ else
 
 } //fin listar tareas
 
+function Detalle_Tarea($ID_Usuario,$Nombre_Tarea)
+{
+ConectarDB();
+$sql = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";	
+$resultado=mysql_query($sql) or die(mysql_error());
+$row = mysql_fetch_array($resultado);
 
-
+echo " <div class='inner'>
+		<h1 id='header'><a>- DETALLES $Nombre_Tarea -</a></h1> <!--SECCIÓN-->
+		<!--INICIO TABLA-->
+		<br>
+			<div style='height:350px;width:auto;overflow-y: scroll;'>
+				<table class='default'>
+                   <tr>
+					<td>T&Iacute;TULO:</td>
+					<td><input type='text' disabled class='text' value='".$row['Nombre_Tarea']."'/></td>
+					<td>PRIORIDAD:</td>
+					<td>";
+					switch ($row['Prioridad_Tarea'])
+								{
+									case 1:
+									echo "Alta";
+									break;
+									case 2:
+									echo "Media";
+									break;
+									case 3:
+									echo "Baja";
+									break;
+									case 4:
+									echo "Sin prioridad";
+									break;
+									default:
+									echo "Sin prioridad";
+								}
+                     echo "</td>
+                      		</tr>
+							<tr>
+                           		<td>Estado:</td>
+                           		<td><input type='text' disabled class='text' value='".$row['Estado_Tarea']."'/></td>
+								<td>Etiqueta:</td>
+                           		<td><input type='text' disabled class='text' value='".$row['Etiqueta_Tarea']."'/></td>
+                          	</tr>
+                          	<tr>
+                           		<td>Proyecto:</td>
+                              	<td><input type='text' disabled class='text' placeholder='Asignar tarea a proyecto (v)'/></td>
+								<td>NOTAS:</td>
+                           		<td><input type='text' disabled class='text' value='".$row['Descripcion_Tarea']."'/></td>
+                          	</tr>
+							<tr>
+                               	<td>Fecha Inicio:</td>
+                               	<td><input type='date' disabled/ value='".$row['Fecha_Inicio']."'></td>
+                               	<td>Fecha Fin:</td>
+                               	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Estimada']."'></td>
+                          	</tr>
+							<tr>
+                           		<td>Fecha Inicio:</td>
+                               	<td><input type='date' disabled value='".$row['Fecha_Inicio_Real']."'></td>
+                               	<td>Fecha Fin:</td>
+                               	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Real']."'></td>
+                          	</tr>
+                		</table>
+                 	</div>
+                      	<table>
+							<tr> <th colspan='4'><a href='EditarTarea.php'><input type='submit' value='MODIFICAR'></a></th> 
+							</tr>
+                    	</table>
+				  <!-- FIN TABLA -->
+                    
+				</div>";
+}
 ?>

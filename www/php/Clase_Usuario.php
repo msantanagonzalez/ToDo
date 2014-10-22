@@ -227,7 +227,7 @@ function Modificar_Usuario($ID_Usuario)
 						<td>USUARIO:</td> 
                          <td><input type='text' disabled class='text' value='".$row['ID_Usuario']."' / name='ID_Usuario'></td>
                                	<td>CORREO:</td>
-                              	<td><input type='text' class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
+                              	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
                           	</tr>
                            	<tr>
                              	<td>APELLIDO1:</td>

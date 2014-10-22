@@ -13,6 +13,12 @@ var PassTwo=document.getElementById("Password2_Usuario").value;
 	}
 }
 
+function Fecha_Sistema()
+{
+var f = new Date();
+document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+}
+
 function Salir_Usuario()
 {
 		if(confirm("¿Quieres cerrar sesion?")) {
@@ -21,15 +27,5 @@ function Salir_Usuario()
 		return false;
 }
 
-function Validar_EstadoNuevaTarea()
-{
-	if (document.getElementById("Validar_Estado").checked){
-		 if(confirm("¿Quieres Empezar la tarea?")) {		
-		 document.getElementsById('Estado_Tarea').selectedIndex = 1;
-		}		
-		else
-		document.getElementsById('Estado_Tarea').selectedIndex = 0;
-	}
-  } 	
 
 

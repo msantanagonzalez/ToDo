@@ -5,6 +5,10 @@ require 'php/Nav.php';
 session_start();
 Validar_Sesion();
 $nav = new Nav;
+ConectarDB();
+	$sql = "select * from Usuario where ID_Usuario = '".$_SESSION['ID_Usuario']."'";
+    $resultado = mysql_query($sql) or die(mysql_error());
+	$row = mysql_fetch_array($resultado) or die(mysql_error());
 ?>
 
 <html>

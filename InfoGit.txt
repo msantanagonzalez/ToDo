@@ -1,0 +1,35 @@
+Git: http://git-scm.com/ 
+Git man: http://git-scm.com/docs
+Git man spanish: http://git-scm.com/book/es
+Git spanish info: http://git-scm.com/book/es/Empezando-Configurando-Git-por-primera-vez
+
+Install git(Linux)
+Steps:
+sudo apt-get install git
+Crear identidad para los commits 
+         git config --global user.name "name"
+	 git config --global user.email name@example.com
+Download repository
+	git pull https://github.com/msantanagonzalez/ToDo_IU4L.git
+Start git on folder(Local)
+        git init
+Add files to repository 
+        git add .
+Create version
+    git commit -m “Mensaje de prueba”
+Upload version
+        git push gc(name/alias) master https://github.com/msantanagonzalez/ToDo_IU4L.git
+
+
+
+Notes:
+
+After making changes:
+check changes with git status 
+commit all changes with git commit -a -m “Otro mensaje” 
+upload with git push gc(name/alias) master
+
+
+git branch name ---- Crear nueva rama 
+git checkout name ----- cambiar de rama 
+git status ---- verificar rama 

@@ -26,7 +26,7 @@ function __construct($Nombre_Proyecto, $ID_Proyecto, $Prioridad_Proyecto)
 {
     $this->Nombre_Proyecto			= $Nombre_Proyecto;
 	$this->ID_Usuario				= $ID_Usuario;
-	$this->Prioridad_Proyecto		= $Prioridad_Proyecto;
+	$this->Prioridad_Proyecto			=$Prioridad_Proyecto;
     
 }
 
@@ -173,4 +173,15 @@ while($row = mysql_fetch_array($resultado))
                        		echo "</tr>";
 							}
 }
+
+function ListarProyectos_AltaTarea($ID_Usuario){
+ConectarDB();
+$sql = "select Nombre_Proyecto from Proyecto where ID_Usuario = '$ID_Usuario'";
+$resultado=mysql_query($sql) or die(mysql_error());
+	while($row = mysql_fetch_array($resultado)){								
+		
+		echo "<option value='".$row['Nombre_Proyecto']."' name='Nombre_Proyecto'>'".$row['Nombre_Proyecto']."'</option>";
+	}
+}
+
 ?>
