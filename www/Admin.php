@@ -62,10 +62,11 @@
                                         <br>
                                         	<table class="default">
                                             <tr>
-                                            	<th width='25%'>Título</th>
-                                            	<th width='25%'>Proyecto</th>
-                                               	<th width='25%'>Prioridad</th>
-                                                <th width='25%'>Editar</th>
+                                            	<th width='20%'>Título</th>
+                                                <th width='20%'>Usuario</th>
+                                            	<th width='20%'>Proyecto</th>
+                                               	<th width='20%'>Prioridad</th>
+                                                <th width='20%'>Editar</th>
                                             </tr>
                                             </table>
                                             <div style="height:107px;width:auto;overflow-y: scroll;">

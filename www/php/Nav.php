@@ -11,21 +11,11 @@ class Nav{
                            	<li class='current'><a href='AdminGestorProyectos.php'>GESTIONAR PROYECTOS</a></li>
                            	<li class='current'><a href='AdminGestorTareas.php'>GESTIONAR TAREAS</a></li>
 							<li class='current'><a href='/php/Cerrar_Sesion.php' id='Logout_Usuario' onclick ='return Salir_Usuario()'>Log Out >]</a></li>
-                            <form method='post' action='AdminResultadosBusqueda.php' style='text-align:center'>
+                            <form method='POST' action='AdminResultadosBusqueda.php' style='text-align:center'>
                         	<section class='box search'>
-								<ul class='desplegable'>
-									<li style='width:100%'>
-										<input type='text' class='text' name='Palabra' placeholder='Buscar...' />
-											<ul style='width:100%'>
-												<input type='text' class='text' name='Usuario' placeholder='Usuario' />
-												<input type='text' class='text' name='Prioridad' placeholder='Prioridad' />
-												<input type='text' class='text' name='Proyecto' placeholder='Proyecto' />
-												<input type='date' name='Fecha' />
-											</ul>
-										</li>
-									</ul>
-                      			</section>
-								<div hidden><input type='submit' name='Buscar' value='JA'/></div>
+								<input type='text' name='busqueda' placeholder='Buscar...' value=''/>
+                      		</section>
+								<div hidden><input type='submit' name='buscar'/></div>
                             </form>
                       	</div>
 					</ul>
@@ -48,19 +38,11 @@ class Nav{
 							<li class='current'><a href='ListadoProyectos.php'>LISTADO PROYECTOS.</a></li>
                             <li class='current'><a href='ListadoTareas.php'>LISTADO TAREAS.</a></li>
 							<li class='current'><a href='/php/Cerrar_Sesion.php' id='Logout_Usuario' onclick ='return Salir_Usuario()'>Log Out >]</a></li>
-                            <form method='post' action='Buscar' style='text-align:center'>
+                            <form method='POST' action='AdminResultadosBusqueda.php' style='text-align:center'>
                         	<section class='box search'>
-								<ul class='desplegable'>
-									<li style='width:100%'>
-										<input type='text' class='text' name='Palabra' placeholder='Buscar...' />
-											<ul style='width:100%'>
-												<input type='text' class='text' name='Prioridad' placeholder='Prioridad' />
-												<input type='text' class='text' name='Proyecto' placeholder='Proyecto' />
-												<input type='date' name='Fecha' />
-											</ul>
-										</li>
-									</ul>
-                      			</section>
+								<input type='text' name='busqueda' placeholder='Buscar...' value=''/>
+                      		</section>
+								<div hidden><input type='submit' name='buscar'/></div>
                             </form>
                       	</div>
 					</ul>
