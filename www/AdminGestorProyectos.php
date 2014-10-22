@@ -28,35 +28,29 @@
 	</head>
 	
 	<body class="left-sidebar">
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Content -->
-					<div id="content">
-						<div class="inner">
-							<!--INICIO SECCIÓN-->
-									<header> <p> <div> <h1 id="logo"><a>- LISTADO DE PROYECTOS -</a></h1> </div></p></header>
-										
-                                        <!--INICIO TABLA-->
-                                        	<table class="default">
-                                            <tr>
-                                            	<th width='20%'>Título</th>
-                                                <th width='20%'>Usuario</th>
-                                            	<th width='20%'>Nº de tareas</th>
-                                               	<th width='20%'>Prioridad</th>
-                                                <th width='20%'>Editar</th>
-                                                
-                                            </tr>
-                                            </table>
-                                            <div style="height:350px;width:auto;overflow-y: scroll;">
-                                            	<table class="default">
-                                                	<?php
-														$admin->Listar_Proyectos();
-													?>
- 												</table>
-                                       <!-- FIN TABLA -->
-                                       </div>
-									</p>	
+		<div id="wrapper"><!-- Wrapper -->
+			<div id="content"><!-- Content -->
+				<div class="inner"><!--INICIO SECCIÓN-->
+					<header> <p> <div> <h1 id="logo"><a>- LISTADO DE PROYECTOS -</a></h1> </div></p></header>
+                    	<!--INICIO TABLA-->
+                        	<table class="default">
+                             	<tr>
+                                  	<th width='20%'>Título</th>
+                                    <th width='20%'>Usuario</th>
+                                    <th width='20%'>Nº de tareas</th>
+                                    <th width='20%'>Prioridad</th>
+                                    <th width='20%'>Editar</th>  
+                                </tr>
+                            </table>
+                            <div style="height:350px;width:auto;overflow-y: scroll;">
+                            	<table class="default">
+                                	<?php
+										$admin->Listar_Proyectos();
+									?>
+ 								</table>
+                                <!-- FIN TABLA -->
+                            </div>
+						</p>	
                            	<!-- FIN SECCIÓN -->				
 							</div>
 						</div>

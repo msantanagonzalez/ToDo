@@ -105,6 +105,9 @@ public function Editar_Proyecto(){
             </tr> 
          </table>
     </form>";
-	}
+}
+public function Buscar(){
+	
+}
 }
 ?>
