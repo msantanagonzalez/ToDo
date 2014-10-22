@@ -40,9 +40,11 @@
 										<!--INICIO TABLA-->
                                         	<table class="default">
                                             <tr>
-                                            	<th width="33%">Título</th>
-                                                <th width="33%">Prioridad</th>
-                                                <th width="33%">Editar</th>
+                                            	<th width="20%">Título</th>
+                                                <th width="20%">Usuario</th>
+                                                <th width="20%">Proyecto</th>
+                                                <th width="20%">Prioridad</th>
+                                                <th width="20%">Editar</th>
                                             </tr>
                                             </table>
                                             <div style="height:350px;width:auto;overflow-y: scroll;">
