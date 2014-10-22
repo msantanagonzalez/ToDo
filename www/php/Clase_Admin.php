@@ -107,7 +107,13 @@ public function Editar_Proyecto(){
     </form>";
 }
 public function Buscar(){
-	
+	/*
+		<td width="28%"><a href="DetallesTarea.html">Prueba0</a></td>
+        <td width="27%"><a href="DetallesProyecto.html">Pro</td>
+        <td width="17%">IV</td>
+        <td width="28%">-EDITAR-</td>
+	*/
+	Conectar_DB();
 }
 }
 ?>

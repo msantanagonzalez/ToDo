@@ -34,11 +34,11 @@
                   	<header> <p> <div> <h1 id="logo"><a>- RESULTADO B&Uacute;SQUEDA -</a></h1> </div></p></header>
                 		<table class="default"><!--TABLA-->
                        		<tr>
-                        		<th width="20%">T&iacute;tulo</th>
                             	<th width="20%">Usuario</th>
                             	<th width="20%">Proyecto</th>
+                                <th width="20%">Tarea</th>
                            		<th width="20%">Prioridad</th>
-                            	<th width="20%">-EDITAR-</th>
+                            	<th width="20%">EDITAR</th>
                      		</tr>
                     	</table>
                   	<div style="height:350px;width:auto;overflow-y: scroll;"><!--ESTO DA LUGAR AL SCROLL-->
