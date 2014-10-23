@@ -8,7 +8,7 @@ var PassTwo=document.getElementById("Password2_Usuario").value;
 	}
 	else
 	{
-		alert("Los PASSWORDS deben ser iguales");
+		alert("|ERROR| Los PASSWORDS deben ser iguales");
 		return false;
 	}
 }
@@ -27,5 +27,46 @@ function Salir_Usuario()
 		return false;
 }
 
+function Validar_Entero(Numero)
+{
+if (Numero % 1 == 0) {
+		return true;
+    }
+    else
+		alert ("|ERROR| Valor: " + "'" + Numero +"'" + " debe ser entero");
+		return false;
+}
+
+function Validar_CodigoPostal()
+{
+	var codigoPostal = document.getElementById("Campo_CodigoPostal").value;
+	if (isNaN(codigoPostal) == true){
+        alert ("|ERROR| Valor: " + "'" + codigoPostal +"'" + " debe ser numerico");
+		return false;
+    }
+	else
+	{
+		if (Validar_Entero(codigoPostal)){
+			if(codigoPostal.length == 0 | codigoPostal.length == 5)
+			{
+				if(confirm("¿Modificar datos?")) {
+				alert("Informacion modificada correctamente");
+					return true;
+				}		
+				else
+				{
+				return false;
+				}
+			
+			}
+			else 
+			{
+				alert("|ERROR| El formato del codigo postal no es correcto");
+				return false;
+			}
+				return false;
+		}
+	}
+}
 
 

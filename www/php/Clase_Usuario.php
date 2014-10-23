@@ -219,7 +219,7 @@ function Modificar_Usuario($ID_Usuario)
 		
 		if(isset($_POST['accion'])){
 	
-					$sql = "UPDATE Usuario SET Email_Usuario='".$_POST['Email_Usuario']."',
+					$sql = "UPDATE Usuario SET Nombre_Usuario='".$_POST['Nombre_Usuario']."',
 					Apellido1_Usuario='".$_POST['Apellido1_Usuario']."',
 					Apellido2_Usuario='".$_POST['Apellido2_Usuario']."',
 					Calle_Usuario='".$_POST['Calle_Usuario']."',
@@ -229,6 +229,7 @@ function Modificar_Usuario($ID_Usuario)
 					Fecha_Nacimiento='".$_POST['Fecha_Nacimiento']."'
 					WHERE ID_Usuario = '".$ID_Usuario."'" ;
 				$resultado = mysql_query($sql) or die(mysql_error());
+				header('location: /Perfil.php');
 				}
 			
 	
@@ -237,15 +238,15 @@ function Modificar_Usuario($ID_Usuario)
 	$row = mysql_fetch_array($resultado) or die(mysql_error());
 	
 	//
-	echo "<form name='FormModificar_Usuario' id='FormModificar_Usuario' method='post' action='EditarPerfil.php' ';
+	echo "<form name='FormModificar_Usuario' id='FormModificar_Usuario' action='EditarPerfil.php' method='post' onsubmit='return Validar_CodigoPostal()'';
 		>
 					<div style='height:350px;width:auto;overflow-y: scroll;'>
 					<table class='default'>
 						<tr> 
 						<td>USUARIO:</td> 
-                         <td><input type='text' disabled class='text' value='".$row['Nombre_Usuario']."' / name='Nombre_Usuario'></td>
+                         <td><input type='text' class='text' value='".$row['Nombre_Usuario']."' / name='Nombre_Usuario'></td>
                                	<td>CORREO:</td>
-                              	<td><input type='text' class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
+                              	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
                           	</tr>
                            	<tr>
                              	<td>APELLIDO1:</td>
@@ -264,7 +265,7 @@ function Modificar_Usuario($ID_Usuario)
                           		<td>PROVINCIA:</td>
                               	<td><input type='text' class='text' value='".$row['Provincia_Usuario']."'/ name='Provincia_Usuario'></td>
 								<td>CODIGO POSTAL:</td>
-                              	<td><input type='text' class='text' value='".$row['CP_Usuario']."'/ name='CP_Usuario'></td>
+                              	<td><input type='text' class='text' value='".$row['CP_Usuario']."'/ name='CP_Usuario' id='Campo_CodigoPostal'></td>
                        		</tr>
 							<tr>
 							<td>FECHA DE NACIMIENTO:</td>
