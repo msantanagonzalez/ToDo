@@ -5,6 +5,9 @@
 	Validar_Sesion();
 	$admin = new Admin;
 	$nav = new Nav;
+	if(isset($_GET['usuario'])){
+		$usuario = $_GET['usuario'];
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -31,7 +34,7 @@
 		<div id="wrapper"><!-- Wrapper -->
 			<div id="content"><!-- Content -->
 				<div class="inner"><!--INICIO SECCIÓN-->
-					<header> <p> <div> <h1 id="logo"><a>- LISTADO DE PROYECTOS -</a></h1> </div></p></header>
+					<header> <p> <div> <h1 id="logo"><a>- PROYECTOS <?php if(isset($_GET['usuario'])){echo $usuario;} ?> -</a></h1> </div></p></header>
                     	<!--INICIO TABLA-->
                         	<table class="default">
                              	<tr>

@@ -39,7 +39,7 @@
 										<!--INICIO TABLA-->
                                         	<table class="default">
                                             <tr>
-                                            	<th width='25%'>Nombre</th>
+                                            	<th width='25%'>ID</th>
                                             	<th width='25%'>Localidad</th>
                                                	<th width='25%'>Email</th>
                                                 <th width='25%'>Editar</th>

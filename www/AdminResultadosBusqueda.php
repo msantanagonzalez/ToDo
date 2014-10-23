@@ -5,6 +5,7 @@
 	Validar_Sesion();
 	$admin = new Admin;
 	$nav = new Nav;
+	$busqueda = $_POST['busqueda'];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -31,12 +32,11 @@
 		<div id="wrapper"><!--WRAPPER-->
 			<div id="content"><!--CONTENIDO-->
 				<div class="inner">
-                  	<header> <p> <div> <h1 id="logo"><a>- RESULTADO B&Uacute;SQUEDA -</a></h1> </div></p></header>
-                		<?php
+                	<?php
 						$admin->Buscar();
-						?>
+					?>
                 	</div> <br>
-                    	<div align="center">* Este ha sido el resultado para la búsqueda: <em>$clavesDeBusquedaIntroducidas</em>.</div>
+                    	<div align="center">* Este ha sido el resultado para la búsqueda: <em><?php echo $busqueda ?></em></div>
                     
 				</div>
 			</div>

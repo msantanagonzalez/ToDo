@@ -8,7 +8,7 @@ class Admin{
 		$result = mysql_query("SELECT * FROM Usuario WHERE Tipo_Usuario LIKE '1'");
 		while($row = mysql_fetch_array($result)){
 			echo "<tr>";
-				echo "<td width='25%'>" . "<a href='AdminPerfil.php'>" . $row['Nombre_Usuario'] . "</td>";
+				echo "<td width='25%'>" . "<a href='AdminPerfil.php?usuario=$row[0]'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='25%'>" . $row['Provincia_Usuario'] . "</td>";
 				echo "<td width='25%'>" . $row['Email_Usuario'] . "</td>";
 				echo "<td width='22%'>" . "<form action='../AdminEditarPerfil.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
@@ -34,7 +34,16 @@ class Admin{
 	//-------------------------------------------------LISTAR PROYECTOS----------------------------------------------
 	public function Listar_Proyectos(){
 		ConectarDB();
-		$result = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p ORDER BY p.Prioridad_Proyecto");
+		if(isset($_POST['agregar'])){
+			$proyecto = $_POST['proyecto'];
+			$prioridad = $_POST['prioridad'];
+			$usuario = $_GET['usuario'];
+			mysql_query("INSERT INTO Proyecto (Nombre_Proyecto, Prioridad_Proyeto) VALUES('$proyecto','$prioridad')");
+			$result = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p WHERE ID_Usuario = '$usuario' ORDER BY p.Prioridad_Proyecto");
+		}else{
+			$result = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p ORDER BY p.Prioridad_Proyecto");
+		}
+		
 		while($row = mysql_fetch_array($result)){
 			echo "<tr>";
 				echo "<td width='20%'>" . "<a href='AdminDetallesProyecto.php?proyecto=$row[0]&usuario=$row[1]'/>" . $row[0] . "</td>";
@@ -91,10 +100,10 @@ class Admin{
 					<td> 
 						<select name='prioridad'> 
 							<option hidden value='$row[2]' selected>$row[2]</option> 
-							<option value='1'>1</option> 
-							<option value='2'>2</option> 
-							<option value='3'>3</option> 
-							<option value='4'>4</option> 
+							<option value='Alta'>Alta</option> 
+							<option value='Media'>Media</option> 
+							<option value='Baja'>Baja</option> 
+							<option value='-'>-</option> 
 						</select> 
 					</td> 
 				</tr> 
@@ -107,14 +116,15 @@ class Admin{
 		</form>";
 	}
 	
+	// ------------------------------------------------------ BUSCAR --------------------------------------------------------------
 	public function Buscar(){
 		ConectarDB();
 		if(isset($_POST['buscar'])){			
 			$busqueda = $_POST['busqueda'];
 		}
-	//-------------------------------------------------LISTAR USUARIOS--------------------------------------------
 	
-	echo "<table class='default'><!--TABLA-->
+	echo "<h1 id='logo'><a>- RESULTADO EN USUARIOS -</a></h1>
+	<table class='default'><!--TABLA-->
                        		<tr>
                             	<th width='25%'>Usuario</th>
                             	<th width='25%'>Provincia</th>
@@ -122,24 +132,23 @@ class Admin{
                             	<th width='25%'>EDITAR</th>
                      		</tr>
                     	</table>
-                  	<div style='height:350px;width:auto;overflow-y: scroll;'>
+                  	<div style='height:170px;width:auto;overflow-y: scroll;'>
                    		<table class='default'>";
 						
 		$resultU = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario LIKE '%$busqueda%' ORDER BY ID_Usuario");
 		while($row = mysql_fetch_array($resultU)){
 			echo "<tr>";
-				echo "<td width='25%'>" . "<a href='AdminPerfil.php'>" . $row['Nombre_Usuario'] . "</td>";
+				echo "<td width='25%'>" . "<a href='AdminPerfil.php?usuario=$row[0]'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='25%'>" . $row['Provincia_Usuario'] . "</td>";
 				echo "<td width='25%'>" . $row['Email_Usuario'] . "</td>";
 				echo "<td width='22%'>" . "<form action='../AdminEditarPerfil.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
 
-	echo "</table>";
+	echo "</table> </div> <br>";
 		
-	
-	//--------------------------------------------------LISTAR TAREAS----------------------------------------------
-	echo "<table class='default'><!--TABLA-->
+	echo "<h1 id='logo'><a>- RESULTADO EN TAREAS -</a></h1>
+	<table class='default'><!--TABLA-->
                        		<tr>
                             	<th width='20%'>Tarea</th>
                             	<th width='20%'>Usuario</th>
@@ -148,7 +157,7 @@ class Admin{
                             	<th width='20%'>EDITAR</th>
                      		</tr>
                     	</table>
-                  	<div style='height:350px;width:auto;overflow-y: scroll;'>
+                  	<div style='height:170px;width:auto;overflow-y: scroll;'>
                    		<table class='default'>";
 		
 		$resultT = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea LIKE '%$busqueda%' ORDER BY Prioridad_Tarea");
@@ -162,11 +171,10 @@ class Admin{
 			echo "</tr>";
 		}
 		
-	echo "</table>";	
+	echo "</table></div><br>";	
 	
-	//-------------------------------------------------LISTAR PROYECTOS----------------------------------------------
-	echo
-	"<table class='default'>
+	echo "<h1 id='logo'><a>- RESULTADO EN PROYECTOS -</a></h1>
+	<table class='default'>
     	<tr>
 			<th width='20%'>Proyecto</th>
 			<th width='20%'>Usuario</th>
@@ -190,8 +198,33 @@ class Admin{
 		}
 		
 	echo
-	"</table>";
+	"</table></div><br>";
 	
+	}
+	
+	// ------------------------------------------------------ AGREGAR PROYECTO --------------------------------------------------------------
+	public function Agregar_proyecto(){
+		if(isset($_POST['user'])){
+			$usuario = $_POST['usuario'];
+		}
+		echo "<form method='POST' action='AdminGestorProyectos.php?usuario=$usuario'>
+		<table class='default'>
+        	<tr>
+               	<td>T&Iacute;TULO:</td>
+				<td><input type='text' autofocus placeholder='$T&iacute;tulo deseado...' name='proyecto' value=''/></td>
+				<td>PRIORIDAD:</td>
+				<td>
+					<select name='prioridad'>
+						<option value='Alta'>Alta</option>
+						<option value='Media'>Media</option>
+						<option value='Baja'>Baja</option>
+						<option value='-' selected>-</option>
+					</select>
+				</td>
+			</tr>           
+	   <table>
+			<tr> <th colspan='4'><input type='submit' value='MODIFICAR' name='agregar'></a></th> </tr>
+		</table></form>";
 	}
 }
 ?>
