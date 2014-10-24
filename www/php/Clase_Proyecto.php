@@ -7,6 +7,38 @@
 
 //-------------------------------------------------------
 include 'FuncionesGenerales.php';
+
+
+	if (isset($_POST['accion'])) {
+	$accion = $_POST['accion'];
+	} else {
+	$accion = "";
+	}
+	if ($accion == 'ENVIAR'){
+	
+		if (isset($_POST['Nombre_Proyecto'])) {
+	$Nombre_Proyecto = $_POST['Nombre_Proyecto'];
+	} else {
+	$Nombre_Proyecto = "NULL";
+	}
+	
+	if (isset($_GET['ID_Usuario'])) {
+	$ID_Usuario = $_GET['ID_Usuario'];
+	} else {
+	$ID_Usuario = "NULL";
+	}
+	
+	if (isset($_POST['Prioridad_Proyecto'])) {
+	$Prioridad_Proyecto = $_POST['Prioridad_Proyecto'];
+	} else {
+	$Prioridad_Proyecto = "NULL";
+	}
+		$proyecto = new Proyecto($Nombre_Proyecto , $ID_Usuario , $Prioridad_Proyecto);
+		$proyecto->Alta_Proyecto();
+	}
+
+
+
 class Proyecto
 {
 
@@ -22,7 +54,7 @@ var $Prioridad_Proyecto;
 
 //Constructor de la clase
 
-function __construct($Nombre_Proyecto, $ID_Proyecto, $Prioridad_Proyecto)
+function __construct($Nombre_Proyecto, $ID_Usuario, $Prioridad_Proyecto)
 {
     $this->Nombre_Proyecto			= $Nombre_Proyecto;
 	$this->ID_Usuario				= $ID_Usuario;
@@ -37,27 +69,24 @@ function __destruct()
 }
 
 //Metodo Alta Proyecto
-function Alta_Proyecto()
-{
-    ConectarDB();
 
-        $sql = "select * from Proyecto where Nombre_Proyecto = '".$this->Nombre_Proyecto."'";
-        $resultado = mysql_query($sql) or die(mysql_error());
-		$res = mysql_fetch_array($resultado);
-        if (mysql_num_rows($resultado) == 0)
+function Alta_Proyecto(){
+
+	ConectarDB();
+	
+	        $sql = "select * from Proyecto where Nombre_Proyecto = '".$this->Nombre_Proyecto."' and ID_Usuario= '".$this->ID_Usuario."'";
+			$resultado = mysql_query($sql) or die(mysql_error());
+			if (mysql_num_rows($resultado) == 0)
         {
-			$sql = "INSERT INTO Proyecto(Nombre_Proyecto,ID_Usuario,Prioridad_Proyecto) VALUES ('".$this->Nombre_Proyecto."','".$this->ID_Usuario."')";
+			
+			$sql = "INSERT INTO Proyecto(Nombre_Proyecto,ID_Usuario,Prioridad_Proyecto) VALUES ('".$this->Nombre_Proyecto."','".$this->ID_Usuario."','".$this->Prioridad_Proyecto."')";
 			mysql_query($sql);
-			Iniciar_Sesion();
+			//Iniciar_Sesion();
 			header('location: /ListadoProyectos.php');
-        }
-        else
-		{
-			if ( "".$this->Nombre_Proyecto."" == $res['Nombre_Proyecto'] )
-			{
-			header('Location: /Error_Alta_Proyecto.php');//SIN CREAR
-			}
-				
+		}
+		else{
+		
+			header('location: /Error_Alta_Proyecto.php');
 		}
 }
 
@@ -141,6 +170,7 @@ function Modificar_Proyecto()
 
 
 }//fin de clase
+
 
 function ListarProyectos($ID_Usuario){
 ConectarDB();

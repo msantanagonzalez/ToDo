@@ -31,35 +31,32 @@ $nav = new Nav;
 			<div id="content"><!--CONTENIDO-->
 				<div class="inner">
                	  <h1 id="header"><a>- AGREGAR NUEVO PROYECTO -</a></h1> <!--SECCIÓN-->
-                	<!--INICIO TABLA-->
+                	
+					
+					<form id="AgregarProyecto" action="php/Clase_Proyecto.php?ID_Usuario=<?php echo $_SESSION["ID_Usuario"]; ?>" method="post" >
+						<!--INICIO TABLA-->
 					<br>
 					<div style="height:350px;width:auto;overflow-y: scroll;">
                     	<table class="default">
                         	<tr>
                               	<td>T&Iacute;TULO:</td>
-                               	<td><form ><input type="text" autofocus class="text" placeholder="T&iacute;tulo de la tarea..."/></form></td>
+                               	<td><input type="text" autofocus class="text" name= "Nombre_Proyecto" placeholder="T&iacute;tulo del proyecto..."/></td>
                                 <td>PRIORIDAD:</td>
                                 <td>
-                                <form>
-                              		<select>
+                              		<select name="Prioridad_Proyecto">
                               			<option value="1">1</option>
                         				<option value="2">2</option>
                                			<option value="3">3</option>
                               			<option value="4" selected>4</option>
                                	 	</select>
-                              	</form>
                               	</td>
                       		</tr>
-                          	<tr>
-                           		<td>NOTAS:</td>
-                           		<td colspan="3"><form ><input type="text" class="text" placeholder="Apartado para notas..."/></form></td>
-                          	</tr>
                  	</div>
                        <table>
-                       		<tr> <th colspan="4"><a href="DetallesProyecto.php"><input type="submit" value="MODIFICAR"></a></th> </tr>
+                       		<tr> <th colspan="4"><input type="submit" name="accion" value="ENVIAR"></a></th> </tr>
                     	</table>
 					<!-- FIN TABLA -->
-                    
+                    </form>
 				</div>
 			</div>
 		</div>
