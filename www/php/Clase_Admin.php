@@ -25,7 +25,8 @@ class Admin{
 				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php'>" . $row[0] . "</td>";
 				echo "<td width='20%'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='20%'>" . $row['Nombre_Proyecto'] . "</td>";
-				echo "<td width='20%'>" . $row['Prioridad_Tarea'] . "</td>";
+				echo "<td width='20%'>"; switch ($row['Prioridad_Tarea']){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
+case 4:echo "-";break;default:echo "-";} "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -49,7 +50,8 @@ class Admin{
 				echo "<td width='20%'>" . "<a href='AdminDetallesProyecto.php?proyecto=$row[0]&usuario=$row[1]'/>" . $row[0] . "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
 				echo "<td width='20%'>" . $row[2] . "</td>";
-				echo "<td width='20%'>" . $row[3] . "</td>";
+				echo "<td width='20%'>"; switch ($row[3]){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
+case 4:echo "-";break;default:echo "-";}  "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarProyecto.php?editarP=$row[0]&usuario=$row[1]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -73,7 +75,8 @@ class Admin{
 				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php'>" . $row[0] . "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
 				echo "<td width='20%'>" . $row[2] . "</td>";
-				echo "<td width='20%'>" . $row[3] . "</td>";
+				echo "<td width='20%'>"; switch ($row[3]){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
+case 4:echo "-";break;default:echo "-";} "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -99,11 +102,11 @@ class Admin{
 					<td>PRIORIDAD:</td> 
 					<td> 
 						<select name='prioridad'> 
-							<option hidden value='$row[2]' selected>$row[2]</option> 
-							<option value='Alta'>Alta</option> 
-							<option value='Media'>Media</option> 
-							<option value='Baja'>Baja</option> 
-							<option value='-'>-</option> 
+							<option hidden value='$row[2]' selected>";switch($row[2]){case 1:echo 'Alta';break;case 2:echo'Media';break;case 3:echo 'Baja';break;case 4:echo '-';break;default:echo '-';} echo "</option>
+							<option value='1'>Alta</option> 
+							<option value='2'>Media</option> 
+							<option value='3'>Baja</option> 
+							<option value='4'>-</option> 
 						</select> 
 					</td> 
 				</tr> 
@@ -166,7 +169,8 @@ class Admin{
 				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php'>" . $row['Nombre_Tarea'] . "</td>";
 				echo "<td width='20%'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='20%'>" . $row['Nombre_Proyecto'] . "</td>";
-				echo "<td width='20%'>" . $row['Prioridad_Tarea'] . "</td>";
+				echo "<td width='20%'>"; switch ($row['Prioridad_Tarea']){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
+case 4:echo "-";break;default:echo "-";} "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -192,7 +196,8 @@ class Admin{
 				echo "<td width='20%'>" . "<a href='AdminDetallesProyecto.php?proyecto=$row[0]&usuario=$row[1]'/>" . $row[0] . "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
 				echo "<td width='20%'>" . $row[2] . "</td>";
-				echo "<td width='20%'>" . $row[3] . "</td>";
+				echo "<td width='20%'>"; switch ($row['Prioridad_Tarea']){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
+case 4:echo "-";break;default:echo "-";} "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarProyecto.php?editarP=$row[0]&usuario=$row[1]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -215,10 +220,10 @@ class Admin{
 				<td>PRIORIDAD:</td>
 				<td>
 					<select name='prioridad'>
-						<option value='Alta'>Alta</option>
-						<option value='Media'>Media</option>
-						<option value='Baja'>Baja</option>
-						<option value='-' selected>-</option>
+						<option value='1'>Alta</option>
+						<option value='2'>Media</option>
+						<option value='3'>Baja</option>
+						<option value='4' selected>-</option>
 					</select>
 				</td>
 			</tr>           
