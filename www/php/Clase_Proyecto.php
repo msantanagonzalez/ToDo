@@ -72,7 +72,7 @@ function __destruct()
 
 function Alta_Proyecto(){
 
-	ConectarDB();
+	ConectarDB(); 
 	
 	        $sql = "select * from Proyecto where Nombre_Proyecto = '".$this->Nombre_Proyecto."' and ID_Usuario= '".$this->ID_Usuario."'";
 			$resultado = mysql_query($sql) or die(mysql_error());
