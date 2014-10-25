@@ -44,10 +44,10 @@ $nav = new Nav;
                                 <td>PRIORIDAD:</td>
                                 <td>
                               		<select name="Prioridad_Proyecto">
-                              			<option value="1">1</option>
-                        				<option value="2">2</option>
-                               			<option value="3">3</option>
-                              			<option value="4" selected>4</option>
+										<option value="4" selected>-</option>
+                              			<option value="1">Alta</option>
+                        				<option value="2">Media</option>
+                               			<option value="3">Baja</option>
                                	 	</select>
                               	</td>
                       		</tr>
