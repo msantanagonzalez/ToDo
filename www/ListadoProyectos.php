@@ -34,10 +34,10 @@ $nav = new Nav;
                	  <h1 id="header"><a>- LISTADO PROYECTOS -</a></h1> <!--SECCIÓN-->
                 	<table class="default"><!--TABLA-->
                        	<tr>
-                        	<th width="28%">T&iacute;tulo</th>
-                            <th width="27%">Nº Tareas</th>
-                            <th width="17%">Prioridad</th>
-                            <th width="28%">-EDITAR-</th>
+                        	<th width="25%">T&iacute;tulo</th>
+                            <th width="25%">Nº Tareas</th>
+                            <th width="25%">Prioridad</th>
+							<th width="25%"></th>
                      	</tr>
                     </table>
                   	<div style="height:350px;width:auto;overflow-y: scroll;"><!--ESTO DA LUGAR AL SCROLL-->

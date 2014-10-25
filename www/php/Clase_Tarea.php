@@ -102,10 +102,10 @@ if ( $Estado_Tarea !== NULL )
 									echo "Baja";
 									break;
 									case 4:
-									echo "Sin prioridad";
+									echo "-";
 									break;
 									default:
-									echo "Sin prioridad";
+									echo "-";
 								}
 								echo "</a></td>";
 								echo "<td width='25%'><button type='submit' name='accion'>Editar</button></td>";
@@ -142,7 +142,7 @@ else
 									echo "Baja";
 									break;
 									default:
-									echo "Sin prioridad";
+									echo "-";
 								}
 								echo "</td>";
 								echo "<td width='20%'>"; 
@@ -159,6 +159,13 @@ else
 function Detalle_Tarea($ID_Usuario,$Nombre_Tarea)
 {
 ConectarDB();
+	if(isset($_POST['eliminar']))
+	{
+		$sql ="delete from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";
+        mysql_query($sql) or die(mysql_error());
+		header('location: /ListadoTareas.php.php');
+	}
+				
 $sql = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";	
 $resultado=mysql_query($sql) or die(mysql_error());
 $row = mysql_fetch_array($resultado);
@@ -167,64 +174,199 @@ echo " <div class='inner'>
 		<h1 id='header'><a>- DETALLES $Nombre_Tarea -</a></h1> <!--SECCIÓN-->
 		<!--INICIO TABLA-->
 		<br>
-			<div style='height:350px;width:auto;overflow-y: scroll;'>
+				<form name='FormDetalle_Tarea' id='FormDetalle_Tarea' onsubmit='return Confirmar_EliminacionTarea()' action='DetallesTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."' method='post'>
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
 				<table class='default'>
+				
                    <tr>
-					<td>T&Iacute;TULO:</td>
-					<td><input type='text' disabled class='text' value='".$row['Nombre_Tarea']."'/></td>
-					<td>PRIORIDAD:</td>
+					<td>Titulo:</td>
+					<td><input type='text' disabled class='text' value='".$row['Nombre_Tarea']."' / name='Nombre_Tarea'></td>
+					<td>Prioridad:</td>
 					<td>";
 					switch ($row['Prioridad_Tarea'])
 								{
 									case 1:
-									echo "Alta";
+									echo "<input type='text' disabled class='text' value='Alta' / name='Prioridad_Tarea' id='Prioridad_Tarea'>";
 									break;
 									case 2:
-									echo "Media";
+									echo "<input type='text' disabled class='text' value='Media' / name='Prioridad_Tarea' id='Prioridad_Tarea'>";
 									break;
 									case 3:
-									echo "Baja";
+									echo "<input type='text' disabled class='text' value='Baja' / name='Prioridad_Tarea' id='Prioridad_Tarea'>";
 									break;
 									case 4:
-									echo "Sin prioridad";
+									echo "<input type='text' disabled class='text' value='-' / name='Prioridad_Tarea' id='Prioridad_Tarea'>";
 									break;
 									default:
-									echo "Sin prioridad";
+									echo "<input type='text' disabled class='text' value='-' / name='Prioridad_Tarea' id='Prioridad_Tarea'>";
 								}
                      echo "</td>
-                      		</tr>
+					 <td>Estado:</td>
+					<td><input type='text' disabled class='text' value='".$row['Estado_Tarea']."'/ name='Estado_Tarea' id='Estado_Tarea'></td>
+                  </tr>
+							
+					<tr>
+							<td>Etiqueta:</td>
+                           	<td><input type='text' disabled class='text' value='".$row['Etiqueta_Tarea']."'/ name='Etiqueta_Tarea'></td>	
+							<td>Descripcion:</td>
+                           	<td colspan='3'><input type='text' disabled class='text' value='".$row['Descripcion_Tarea']."'/ name='Descripcion_Tarea'></td>
+                    </tr>
+							
 							<tr>
-                           		<td>Estado:</td>
-                           		<td><input type='text' disabled class='text' value='".$row['Estado_Tarea']."'/></td>
-								<td>Etiqueta:</td>
-                           		<td><input type='text' disabled class='text' value='".$row['Etiqueta_Tarea']."'/></td>
-                          	</tr>
-                          	<tr>
-                           		<td>Proyecto:</td>
-                              	<td><input type='text' disabled class='text' placeholder='Asignar tarea a proyecto (v)'/></td>
-								<td>NOTAS:</td>
-                           		<td><input type='text' disabled class='text' value='".$row['Descripcion_Tarea']."'/></td>
-                          	</tr>
-							<tr>
-                               	<td>Fecha Inicio:</td>
+                               	<td colspan='2'>Fecha Inicio Estimada:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Inicio']."'></td>
-                               	<td>Fecha Fin:</td>
+                               	<td colspan='2'>Fecha Fin Estimada:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Estimada']."'></td>
                           	</tr>
 							<tr>
-                           		<td>Fecha Inicio:</td>
+                           		<td  colspan='2'>Fecha Inicio Real:</td>
                                	<td><input type='date' disabled value='".$row['Fecha_Inicio_Real']."'></td>
-                               	<td>Fecha Fin:</td>
+                               	<td colspan='2'>Fecha Fin Real:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Real']."'></td>
                           	</tr>
+							
+							<tr>
+								<td></td>
+                           		<td colspan='2'>Proyecto:</td>
+                              	<td colspan='2'><input type='text' disabled class='text' value=' ";
+								if ( $row['Nombre_Proyecto'] == "" )
+								{
+								echo "SIN PROYECTO";
+								}
+								else
+								{
+								echo $row['Nombre_Proyecto'] ;
+								}
+								echo "'/ name='Nombre_Proyecto'></td>
+                          	</tr>
+							
                 		</table>
                  	</div>
                       	<table>
-							<tr> <th colspan='4'><a href='EditarTarea.php'><input type='submit' value='MODIFICAR'></a></th> 
+							<tr> 
+							<td width='25%'>
+							<th colspan='4'><a href='EditarTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'><input type='button' value='MODIFICAR' onclick='return Validar_EstadoTarea()'></a></th> 
+							</td>
+							<td width='25%'>
+							<input type='submit' name='eliminar' value='ELIMINAR'>
+							</td>
+							<td width='25%'>
+							</td>
 							</tr>
                     	</table>
+						</form>
 				  <!-- FIN TABLA -->
                     
 				</div>";
 }
+
+function Modificar_Tarea($ID_Usuario,$Nombre_Tarea,$Estado_Tarea)
+{
+ConectarDB();
+$sql = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";	
+$resultado=mysql_query($sql) or die(mysql_error());
+$row = mysql_fetch_array($resultado);
+
+echo " <div class='inner'>
+		<h1 id='header'><a>- DETALLES $Nombre_Tarea -</a></h1> <!--SECCIÓN-->
+		<!--INICIO TABLA-->
+		<br>
+				<form name='FormConsultar_Tarea' id='FormConsultar_Tarea' action='php/Clase_Tarea.php' method='post'>
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
+				<table class='default'>
+                   <tr>
+					<td>Titulo:</td>
+					<td>
+					<input type='text' disabled class='text' value='".$row['Nombre_Tarea']."' / name='Nombre_Tarea'>
+					</td>
+					<td>Prioridad:</td>
+					<td>";
+					echo "<select name='Prioridad_Tarea'>
+					  <option value='4'>-</option>
+					  <option value='1'>Alta</option>
+					  <option value='2'>Media</option>
+					  <option value='3'>Baja</option>
+					</select> ";
+                     echo "</td>
+					 <td>Estado:</td>
+					<td>";
+					switch ($row['Estado_Tarea'])
+						{
+						case "Creada":
+						echo "<select name='Estado_Tarea'>
+								<option value='Creada' selected>Creada</option>
+								  <option value='En Curso'>En Curso</option>
+								  <option value='Finalizada'>Finalizada</option>
+								</select> ";
+						break;
+						case "En Curso":
+						echo "<select name='Estado_Tarea'>
+								  <option value='En Curso' selected>En Curso</option>
+								  <option value='Finalizada'>Finalizada</option>
+								</select> ";
+						break;
+						case "Finalizada":
+						echo "<select name='Estado_Tarea'>
+								  <option value='Finalizada' selected>Finalizada</option>
+								</select> ";
+						break;
+						default:
+							
+						}
+					echo "</td>
+                      		</tr>
+							
+							<tr>
+							<td>Etiqueta:</td>
+                           	<td><input type='text' class='text' value='".$row['Etiqueta_Tarea']."'/ name='Etiqueta_Tarea'></td>	
+							<td>Descripcion:</td>
+                           	<td colspan='3'><input type='text' class='text' value='".$row['Descripcion_Tarea']."'/ name='Descripcion_Tarea'></td>
+                          	</tr>
+							
+							<tr>
+                               	<td colspan='2'>Fecha Inicio Estimada:</td>
+                               	<td><input type='date' disabled/ value='".$row['Fecha_Inicio']."'></td>
+                               	<td colspan='2'>Fecha Fin Estimada:</td>
+                               	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Estimada']."'></td>
+                          	</tr>
+							<tr>
+                           		<td  colspan='2'>Fecha Inicio Real:</td>
+                               	<td><input type='date' disabled value='".$row['Fecha_Inicio_Real']."'></td>
+                               	<td colspan='2'>Fecha Fin Real:</td>
+                               	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Real']."'></td>
+                          	</tr>
+							
+							<tr>
+								<td></td>
+                           		<td colspan='2'>Proyecto:</td>
+                              	<td colspan='2'><input type='text' disabled class='text' value=' ";
+								if ( $row['Nombre_Proyecto'] == "" )
+								{
+								echo "SIN PROYECTO";
+								}
+								else
+								{
+								echo $row['Nombre_Proyecto'] ;
+								}
+								echo "'/></td>
+								<td></td>
+                          	</tr>
+							
+                		</table>
+                 	</div>
+                      	<table>
+							<tr> 
+							<td width='25%'>
+							<th colspan='4'><input type='submit' name='accion' value='GUARDAR'></th> 
+							</td>
+							<td width='25%'>
+							</td>
+							</tr>
+                    	</table>
+						</form>
+				  <!-- FIN TABLA -->
+                    
+				</div>";
+}
+
 ?>

@@ -82,3 +82,30 @@ function Confirmar_EliminacionProyecto()
 	}
 }
 
+function Confirmar_EliminacionTarea()
+{
+	if(confirm("¿Eliminar Tarea?"))
+	{
+		alert("Tarea Eliminado");
+		return true;
+	}		
+	else
+	{
+		return false;
+	}
+}
+
+function Validar_EstadoTarea()
+{
+	var estadoTarea=document.getElementById("Estado_Tarea").value;
+	if( estadoTarea == "Finalizada" )
+	{
+		alert("|ERROR| Tarea finalizada");
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+

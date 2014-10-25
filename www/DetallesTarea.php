@@ -11,6 +11,12 @@ $nav = new Nav;
 	} else {
 	$Nombre_Tarea = "NULL";
 	}
+	
+	if (isset($_GET['Estado_Tarea'])) {
+	$Estado_Tarea = $_GET['Estado_Tarea'];
+	} else {
+	$Estado_Tarea = "NULL";
+	}
 ?>
 <html>
 
@@ -36,7 +42,7 @@ $nav = new Nav;
 		<div id="wrapper"><!--WRAPPER-->
 			<div id="content"><!--CONTENIDO-->
 				<?php
-				Detalle_Tarea($_SESSION["ID_Usuario"],$Nombre_Tarea)
+				Detalle_Tarea($_SESSION["ID_Usuario"],$Nombre_Tarea,$Estado_Tarea)
 				?>
 			</div>
 		</div>
