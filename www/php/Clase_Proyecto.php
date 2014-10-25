@@ -128,8 +128,8 @@ while($row = mysql_fetch_array($resultado))
 								}
 								echo "</td>";
 										echo "<td width='20%'><button type='submit' name='accion'>Editar</button>
-												<button type='submit' name='delete'>Borrar</button>
-												</td>";
+												<button type='submit' name='delete' onclick='return Confirmar_EliminacionProyecto()'>Borrar</button>
+											 </td>";
 									echo "</td>";
                        		echo "</tr>";
 							echo "</form>";

@@ -69,4 +69,16 @@ function Validar_CodigoPostal()
 	}
 }
 
+function Confirmar_EliminacionProyecto()
+{
+	if(confirm("¿Eliminar Proyecto?"))
+	{
+		alert("Proyecto Eliminado");
+		return true;
+	}		
+	else
+	{
+		return false;
+	}
+}
 
