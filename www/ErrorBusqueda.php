@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <?php 
-require "php/clases/FuncionesGenerales.php";
+require "php/FuncionesGenerales.php";
 require 'php/Nav.php';
 session_start();
 Validar_Sesion();

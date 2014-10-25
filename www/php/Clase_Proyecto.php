@@ -16,25 +16,27 @@ include 'FuncionesGenerales.php';
 	}
 	if ($accion == 'ENVIAR'){
 	
-		if (isset($_POST['Nombre_Proyecto'])) {
-	$Nombre_Proyecto = $_POST['Nombre_Proyecto'];
-	} else {
-	$Nombre_Proyecto = "NULL";
-	}
-	
-	if (isset($_GET['ID_Usuario'])) {
-	$ID_Usuario = $_GET['ID_Usuario'];
-	} else {
-	$ID_Usuario = "NULL";
-	}
-	
-	if (isset($_POST['Prioridad_Proyecto'])) {
-	$Prioridad_Proyecto = $_POST['Prioridad_Proyecto'];
-	} else {
-	$Prioridad_Proyecto = "NULL";
-	}
-		$proyecto = new Proyecto($Nombre_Proyecto , $ID_Usuario , $Prioridad_Proyecto);
-		$proyecto->Alta_Proyecto();
+				if (isset($_POST['Nombre_Proyecto'])) {
+			$Nombre_Proyecto = $_POST['Nombre_Proyecto'];
+			} else {
+			$Nombre_Proyecto = "NULL";
+			}
+			
+			if (isset($_GET['ID_Usuario'])) {
+			$ID_Usuario = $_GET['ID_Usuario'];
+			} else {
+			$ID_Usuario = "NULL";
+			}
+			
+			if (isset($_POST['Prioridad_Proyecto'])) {
+			$Prioridad_Proyecto = $_POST['Prioridad_Proyecto'];
+			} else {
+			$Prioridad_Proyecto = "NULL";
+			}
+			
+				$proyecto = new Proyecto($Nombre_Proyecto , $ID_Usuario , $Prioridad_Proyecto);
+				$proyecto->Alta_Proyecto();
+		
 	}
 
 
@@ -71,21 +73,18 @@ function __destruct()
 //Metodo Alta Proyecto
 
 function Alta_Proyecto(){
-
 	ConectarDB(); 
-	
 	        $sql = "select * from Proyecto where Nombre_Proyecto = '".$this->Nombre_Proyecto."' and ID_Usuario= '".$this->ID_Usuario."'";
+			echo $sql;
 			$resultado = mysql_query($sql) or die(mysql_error());
 			if (mysql_num_rows($resultado) == 0)
         {
 			
 			$sql = "INSERT INTO Proyecto(Nombre_Proyecto,ID_Usuario,Prioridad_Proyecto) VALUES ('".$this->Nombre_Proyecto."','".$this->ID_Usuario."','".$this->Prioridad_Proyecto."')";
 			mysql_query($sql);
-			//Iniciar_Sesion();
 			header('location: /ListadoProyectos.php');
 		}
 		else{
-		
 			header('location: /Error_Alta_Proyecto.php');
 		}
 }
@@ -98,7 +97,7 @@ $sql = "select * from Proyecto where ID_Usuario = '$ID_Usuario' order by Priorid
 $resultado=mysql_query($sql) or die(mysql_error());
 while($row = mysql_fetch_array($resultado))
 							{
-							echo "<form action='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."' method='post'>";
+							echo "<form action='EditarProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."&Prioridad=".$row['Prioridad_Proyecto']."' method='post'>";
 								echo "<tr>"; 
                             	echo "<td width='20%'>
 <a href='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."'>";
@@ -145,6 +144,92 @@ $resultado=mysql_query($sql) or die(mysql_error());
 		echo "<option value='".$row['Nombre_Proyecto']."' name='Nombre_Proyecto'>'".$row['Nombre_Proyecto']."'</option>";
 	}
 }
+
+function Editar_Proyecto($ID_Usuario,$Nombre_Proyecto,$Prioridad_Proyecto){
+
+if(isset($_POST['modificar'])){
+ConectarDB();
+	if (isset($_POST['Prioridad_Proyecto'])) {
+	$Prioridad_Proyecto = $_POST['Prioridad_Proyecto'];
+	} else {
+	$Prioridad_Proyecto = "";
+	}
+	$sql = "UPDATE Proyecto SET Prioridad_Proyecto='$Prioridad_Proyecto' WHERE ID_Usuario = '$ID_Usuario'" ;
+					echo $sql;
+				$resultado = mysql_query($sql) or die(mysql_error());
+				header('location: /ListadoProyectos.php');
+}
+				
+echo "
+<!--INICIO TABLA-->
+					<br>
+					<form name='FormModificar_Proyecto' id='FormModificar_Proyecto' action='EditarProyecto.php?Nombre_Proyecto=$Nombre_Proyecto' method='post' onsubmit='return Confirmar_Modificacion()'>
+					<div style='height:350px;width:auto;overflow-y: scroll;'>
+					
+                    	<table class='default'>
+                        	<tr>
+                              	<td width='25%'>T&Iacute;TULO:</td>
+                               	<td width='25%'><input type='text' disabled class='text' value='$Nombre_Proyecto'/ name='Nombre_Proyecto'></td>
+                                <td width='25%'>PRIORIDAD:</td>
+                                <td width='25%'>";
+								switch($Prioridad_Proyecto)
+								{
+									case 1:
+									echo "<select name='Prioridad_Proyecto'>
+                              			<option value='1' selected>Alta</option>
+                        				<option value='2'>Media</option>
+                               			<option value='3'>Baja</option>
+                              			<option value='4'>-</option>
+                               	 	</select>";
+									break;
+									case 2:
+									echo "<select name='Prioridad_Proyecto'>
+                              			<option value='1'>Alta</option>
+										<option value='2' selected>Media</option>
+                               			<option value='3'>Baja</option>
+                              			<option value='4'>-</option>
+                               	 	</select>";
+									break;
+									case 3:
+									echo "<select name='Prioridad_Proyecto'>
+                              			<option value='1'>Alta</option>
+                        				<option value='2'>Media</option>
+                               			<option value='3' selected>Baja</option>
+                              			<option value='4'>-</option>
+                               	 	</select>";
+									break;
+									case 4:
+									echo "<select name='Prioridad_Proyecto'>
+                              			<option value='1'>Alta</option>
+                        				<option value='2'>Media</option>
+                               			<option value='3'>Baja</option>
+                              			<option value='4' selected>-</option>
+                               	 	</select>";
+									break;
+									default:
+									echo "<select name='Prioridad_Proyecto'>
+                              			<option value='1'>Alta</option>
+                        				<option value='2'>Media</option>
+                               			<option value='3'>Baja</option>
+                              			<option value='4' selected>-</option>
+                               	 	</select>";
+								}
+                              	echo "</td>
+                      		</tr>
+                 	</div>
+                       <table>
+					   <tr>
+							<td width='25%'></td>
+							<td width='25%'><a href='ListadoProyectos.php'><input type='button' value='VOLVER'></a></td> 
+                       		<td width='25%'><th colspan='4'><input type='submit' name='modificar' value='GUARDAR'></th> </td>
+							<td width='25%'></td>
+						</tr>
+                    	</table>
+					</form>	
+					<!-- FIN TABLA --> ";
+
+}
+
 
 // Eliminar proyecto
 	if (array_key_exists('delete', $_POST)) {

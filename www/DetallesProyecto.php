@@ -5,6 +5,12 @@ require 'php/Nav.php';
 session_start();
 Validar_Sesion();
 $nav = new Nav;
+
+if (isset($_GET['Nombre_Proyecto'])) {
+	$Nombre_Proyecto = $_GET['Nombre_Proyecto'];
+	} else {
+	$Nombre_Proyecto = "NULL";
+	}
 ?>
 <html>
 

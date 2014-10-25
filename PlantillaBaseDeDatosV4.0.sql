@@ -71,7 +71,7 @@ CREATE TABLE `Tarea` (
 
 /* 3.1- Tabla usuario     */
 INSERT INTO Usuario (ID_Usuario,Email_Usuario,Nombre_Usuario,Apellido1_Usuario,Apellido2_Usuario,Password_Usuario,Fecha_Nacimiento,Calle_Usuario,N_Portal_Usuario,Provincia_Usuario,CP_Usuario,Tipo_Usuario) 
-VALUES ("MS01","example@server.com","Marco","Santana","Gonzalez",123456,1991-15-04,"Calle1","p1","Ourense",32005,0),
+VALUES ("MS01","example@server.com","Marco","Santana","Gonzalez",123456,1991-15-04,"Calle1","p1","Ourense",32005,1),
 ('admin', 'admin@example.com', 'admin', 'adminapel', 'adminapel2', 'admin', '0000-00-00', 'NULL', 'NULL', 'NULL', 0, 0),
 ('MG01', 'ejemplo@server.com', 'Maria', 'Apel1', 'Apel2', '123456', '0000-00-00', 'Calle1', 'p1', 'Ourense', 32005, 1),
 ('Tatiux', 'tatiux.santana@gmail.com', 'Marco', 'Santana', 'Gonzalez', '12345', '0000-00-00', '', '', '', 0, 1);

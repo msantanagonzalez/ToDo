@@ -40,7 +40,7 @@ $nav = new Nav;
                     	<table class="default">
                         	<tr>
                               	<td>T&Iacute;TULO:</td>
-                               	<td><input type="text" autofocus class="text" name= "Nombre_Proyecto" placeholder="T&iacute;tulo del proyecto..."/></td>
+                               	<td><input type="text" required class="text" name= "Nombre_Proyecto" placeholder="T&iacute;tulo del proyecto..."/></td>
                                 <td>PRIORIDAD:</td>
                                 <td>
                               		<select name="Prioridad_Proyecto">

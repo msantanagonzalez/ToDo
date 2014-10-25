@@ -109,3 +109,16 @@ function Validar_EstadoTarea()
 	}
 }
 
+function Confirmar_Modificacion()
+{
+	if(confirm("¿Modificar datos?"))
+	{
+		alert("Datos modificados");
+		return true;
+	}		
+	else
+	{
+		return false;
+	}
+}
+
