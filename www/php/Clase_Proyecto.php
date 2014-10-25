@@ -230,7 +230,54 @@ echo "
 
 }
 
+function Consultar_Proyecto($ID_Usuario,$Nombre_Proyecto)
+{
+ConectarDB();	
+$sql = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Proyecto = '$Nombre_Proyecto' order by Prioridad_Tarea";
+$resultado=mysql_query($sql) or die(mysql_error());
+while($row = mysql_fetch_array($resultado))
+							{
+						echo "<table class='default'><!--TABLA-->";
+							echo "<form method='post'>";
+								echo "<tr>"; 
+                            	echo "<td>
+<a href='DetallesTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'>"; 
+								echo $row['Nombre_Tarea'];
+								echo "</a></td>";
+								echo "<td>";
+								echo "</td>";
+								
+								echo "<td>";
+								switch ($row['Prioridad_Tarea'])
+								{
+									case 1:
+									echo "Alta";
+									break;
+									case 2:
+									echo "Media";
+									break;
+									case 3:
+									echo "Baja";
+									break;
+									default:
+									echo "Sin prioridad";
+								}
+								echo "</td>";
+								echo "<td>";
+								echo "</td>";
+								echo "<td>";
+								echo "</td>";
+                       		echo "</tr>";
+							echo "</table>";	
+							echo "</form>";
+							}
+							echo "<div align='center'>
+							<a href='ListadoProyectos.php'><input type='button' value='VOLVER'></a>
+							<a href='AgregarTarea.php?Nombre_Proyecto=$Nombre_Proyecto'><input type='button' value='Agregar Tarea'></a>
+							</div> ";                   
 
+							
+}
 // Eliminar proyecto
 	if (array_key_exists('delete', $_POST)) {
 		$conn = null;

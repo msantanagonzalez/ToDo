@@ -36,65 +36,19 @@ if (isset($_GET['Nombre_Proyecto'])) {
 		<div id="wrapper"><!--WRAPPER-->
 			<div id="content"><!--CONTENIDO-->
 				<div class="inner">
-               	  <h1 id="header"><a>- $nombreProyecto -</a></h1> <!--SECCIÓN-->
+               	  <h1 id="header"><a>- <?php echo "Proyecto: ";echo $Nombre_Proyecto ?> -</a></h1> <!--SECCIÓN-->
                 	<table class="default"><!--TABLA-->
                        	<tr>
                         	<th width="28%">T&iacute;tulo</th>
                             <th width="17%">Prioridad</th>
-                            <th width="28%">-EDITAR-</th>
+                            <th width="28%"></th>
                      	</tr>
                     </table>
                   	<div style="height:350px;width:auto;overflow-y: scroll;"><!--ESTO DA LUGAR AL SCROLL-->
-                   		<table class="default"><!--TABLA-->
-                   			<tr align="center"> 
-                      			<td width="28%"><a href="detallesTarea.php">Prueba0</a></td>
-               					<td width="17%">IV</td>
-             					<td width="28%">-EDITAR-</td>
-							</tr>
-							<tr align="center"> 
-								<td><a href="detallesTarea.php">Prueba0</a></td>
-                            	<td>IV</td>
-								<td>-EDITAR-</td>
-                       		</tr>
-                      		<tr align="center"> 
-                        		<td><a href="detallesTarea.php">Prueba0</a></td>
-           						<td>IV</td>
-                            	<td>-EDITAR-</td>
-                      		</tr>
-                            <tr align="center"> 
-								<td><a href="detallesTarea.php">Prueba0</a></td>
-                            	<td>IV</td>
-								<td>-EDITAR-</td>
-                       		</tr>
-                      		<tr align="center"> 
-                        		<td><a href="detallesTarea.php">Prueba0</a></td>
-           						<td>IV</td>
-                            	<td>-EDITAR-</td>
-                      		</tr>
-                            <tr align="center"> 
-								<td><a href="detallesTarea.php">Prueba0</a></td>
-                            	<td>IV</td>
-								<td>-EDITAR-</td>
-                       		</tr>
-                      		<tr align="center"> 
-                        		<td><a href="detallesTarea.php">Prueba0</a></td>
-           						<td>IV</td>
-                            	<td>-EDITAR-</td>
-                      		</tr>
-                            <tr align="center"> 
-								<td><a href="detallesTarea.php">Prueba0</a></td>
-                            	<td>IV</td>
-								<td>-EDITAR-</td>
-                       		</tr>
-                      		<tr align="center"> 
-                        		<td><a href="detallesTarea.php">Prueba0</a></td>
-           						<td>IV</td>
-                            	<td>-EDITAR-</td>
-                      		</tr>
-                   		</table>
+					<?php
+                   		Consultar_Proyecto($_SESSION["ID_Usuario"],$Nombre_Proyecto);
+					?>
                 	</div> <br>
-                    	<div align="center"><a href="AgregarTarea.php"><input type="button" class="disabled" value="Agregar Tarea"></a></div>
-                    
 				</div>
 			</div>
 		</div>
