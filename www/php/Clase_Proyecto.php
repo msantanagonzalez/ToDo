@@ -105,6 +105,13 @@ while($row = mysql_fetch_array($resultado))
 								echo $row['Nombre_Proyecto'];
 								echo "</a></td>";
 								echo "<td width='20%'>";
+								$sql2 = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Proyecto='".$row['Nombre_Proyecto']."'";
+								$result2 = mysql_query($sql2); 
+								$cantidad = mysql_num_rows($result2);
+								echo $cantidad;
+								echo "</td>";
+								
+								echo "<td width='20%'>";
 								switch ($row['Prioridad_Proyecto'])
 								{
 									case 1:
