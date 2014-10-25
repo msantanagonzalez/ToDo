@@ -79,7 +79,7 @@ if ( $Estado_Tarea !== NULL )
 							$resultado=mysql_query($sql) or die(mysql_error());
 							while($row = mysql_fetch_array($resultado))
 							{
-							 echo "<form action='EditarTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'' method='post'>";
+							 echo "<form>";
 								echo "<tr>"; 
 								echo "<td width='25%'>
 	<a href='DetallesTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'>"; 
@@ -108,7 +108,7 @@ if ( $Estado_Tarea !== NULL )
 									echo "-";
 								}
 								echo "</a></td>";
-								echo "<td width='25%'><button type='submit' name='accion'>Editar</button></td>";
+								echo "<td width='25%'><a href='EditarTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'><button type='button' name='accion'>Editar</button></a></td>";
 								echo "</a></td>";
                        		echo "</tr>";
 							echo "</form>";
@@ -148,7 +148,7 @@ else
 								echo "<td width='20%'>"; 
 								echo  $row['Estado_Tarea'] ;
 								echo "</a></td>";
-								echo "<td width='20%'>" . "<form action='EditarTarea.php' method='post'>" . "<button type='submit' name='Editar_Tarea'>" . "Editar" . "</button>" . "</form>" . "</td>";
+								echo "<td width='20%'><a href='EditarTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'><button type='submit' name='Editar_Tarea'>Editar</button></td>";
 								echo "</td>";
                        		echo "</tr>";
 							}
@@ -163,7 +163,7 @@ ConectarDB();
 	{
 		$sql ="delete from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";
         mysql_query($sql) or die(mysql_error());
-		header('location: /ListadoTareas.php.php');
+		header('location: /ListadoTareas.php');
 	}
 				
 $sql = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";	
@@ -201,34 +201,36 @@ echo " <div class='inner'>
 									echo "<input type='text' disabled class='text' value='-' / name='Prioridad_Tarea' id='Prioridad_Tarea'>";
 								}
                      echo "</td>
+					 </tr>
+					
+					<tr>
 					 <td>Estado:</td>
 					<td><input type='text' disabled class='text' value='".$row['Estado_Tarea']."'/ name='Estado_Tarea' id='Estado_Tarea'></td>
-                  </tr>
-							
-					<tr>
-							<td>Etiqueta:</td>
-                           	<td><input type='text' disabled class='text' value='".$row['Etiqueta_Tarea']."'/ name='Etiqueta_Tarea'></td>	
+					<td>Etiqueta:</td>
+					<td><input type='text' disabled class='text' value='".$row['Etiqueta_Tarea']."'/ name='Etiqueta_Tarea'></td>	
+					</tr>
+					</tr>
 							<td>Descripcion:</td>
                            	<td colspan='3'><input type='text' disabled class='text' value='".$row['Descripcion_Tarea']."'/ name='Descripcion_Tarea'></td>
                     </tr>
 							
 							<tr>
-                               	<td colspan='2'>Fecha Inicio Estimada:</td>
+                               	<td>Fecha Inicio Estimada:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Inicio']."'></td>
-                               	<td colspan='2'>Fecha Fin Estimada:</td>
+                               	<td>Fecha Fin Estimada:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Estimada']."'></td>
                           	</tr>
 							<tr>
-                           		<td  colspan='2'>Fecha Inicio Real:</td>
+                           		<td>Fecha Inicio Real:</td>
                                	<td><input type='date' disabled value='".$row['Fecha_Inicio_Real']."'></td>
-                               	<td colspan='2'>Fecha Fin Real:</td>
+                               	<td>Fecha Fin Real:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Real']."'></td>
                           	</tr>
 							
 							<tr>
 								<td></td>
-                           		<td colspan='2'>Proyecto:</td>
-                              	<td colspan='2'><input type='text' disabled class='text' value=' ";
+                           		<td>Proyecto:</td>
+                              	<td><input type='text' disabled class='text' value=' ";
 								if ( $row['Nombre_Proyecto'] == "" )
 								{
 								echo "SIN PROYECTO";
@@ -260,9 +262,80 @@ echo " <div class='inner'>
 				</div>";
 }
 
-function Modificar_Tarea($ID_Usuario,$Nombre_Tarea,$Estado_Tarea)
+function Modificar_Tarea($ID_Usuario,$Nombre_Tarea)
 {
 ConectarDB();
+
+if(isset($_POST['guardar'])){
+	
+	if (isset($_POST['Nombre_Proyecto'])) {
+	$Nombre_Proyecto = $_POST['Nombre_Proyecto'];
+	} else {
+	$Nombre_Proyecto = "NULL";
+	}
+	
+	if (isset($_POST['Descripcion_Tarea'])) {
+	$Descripcion_Tarea = $_POST['Descripcion_Tarea'];
+	} else {
+	$Descripcion_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Etiqueta_Tarea'])) {
+	$Etiqueta_Tarea = $_POST['Etiqueta_Tarea'];
+	} else {
+	$Etiqueta_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Estado_Tarea'])) {
+	$Estado_Tarea = $_POST['Estado_Tarea'];
+	} else {
+	$Estado_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Prioridad_Tarea'])) {
+	$Prioridad_Tarea = $_POST['Prioridad_Tarea'];
+	} else {
+	$Prioridad_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Fecha_Inicio'])) {
+	$Fecha_Inicio = $_POST['Fecha_Inicio'];
+	} else {
+	$Fecha_Inicio = "NULL";
+	}
+	
+	if (isset($_POST['Fecha_Fin_Estimada'])) {
+	$Fecha_Fin_Estimada = $_POST['Fecha_Fin_Estimada'];
+	} else {
+	$Fecha_Fin_Estimada = "NULL";
+	}
+	
+	if (isset($_POST['Fecha_Inicio_Real'])) {
+	$Fecha_Inicio_Real = $_POST['Fecha_Inicio_Real'];
+	} else {
+	$Fecha_Inicio_Real = "NULL";
+	}
+	
+	if (isset($_POST['Fecha_Fin_Real'])) {
+	$Fecha_Fin_Real = $_POST['Fecha_Fin_Real'];
+	} else {
+	$Fecha_Fin_Real = "NULL";
+	}
+	
+	$sql = "UPDATE Tarea SET Nombre_Proyecto='$Nombre_Proyecto',
+					Descripcion_Tarea='$Descripcion_Tarea',
+					Etiqueta_Tarea='$Etiqueta_Tarea',
+					Estado_Tarea='$Estado_Tarea',
+					Prioridad_Tarea='$Prioridad_Tarea',
+					Fecha_Inicio='$Fecha_Inicio',
+					Fecha_Fin_Estimada='$Fecha_Fin_Estimada',
+					Fecha_Inicio_Real='$Fecha_Inicio_Real',
+					Fecha_Fin_Real='$Fecha_Fin_Real'
+					WHERE ID_Usuario='$ID_Usuario' and Nombre_Tarea='$Nombre_Tarea'"  ;
+				$resultado = mysql_query($sql) or die(mysql_error());
+				header('location: /DetallesTarea.php?ID_Usuario='.$ID_Usuario.'&Nombre_Tarea='.$Nombre_Tarea.'');
+}
+
 $sql = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";	
 $resultado=mysql_query($sql) or die(mysql_error());
 $row = mysql_fetch_array($resultado);
@@ -271,23 +344,65 @@ echo " <div class='inner'>
 		<h1 id='header'><a>- DETALLES $Nombre_Tarea -</a></h1> <!--SECCIÓN-->
 		<!--INICIO TABLA-->
 		<br>
-				<form name='FormConsultar_Tarea' id='FormConsultar_Tarea' action='php/Clase_Tarea.php' method='post'>
+				<form name='FormModificar_Tarea' id='FormModificar_Tarea' action='EditarTarea.php?ID_Usuario=$ID_Usuario&Nombre_Tarea=$Nombre_Tarea' method='post' onsubmit='return Confirmar_Modificacion()' >
 				<div style='height:350px;width:auto;overflow-y: scroll;'>
 				<table class='default'>
                    <tr>
 					<td>Titulo:</td>
 					<td>
-					<input type='text' disabled class='text' value='".$row['Nombre_Tarea']."' / name='Nombre_Tarea'>
+					<input type='text' disabled class='text' value=$Nombre_Tarea / name='Nombre_Tarea'>
 					</td>
 					<td>Prioridad:</td>
 					<td>";
-					echo "<select name='Prioridad_Tarea'>
-					  <option value='4'>-</option>
-					  <option value='1'>Alta</option>
-					  <option value='2'>Media</option>
-					  <option value='3'>Baja</option>
-					</select> ";
+					
+					switch($row['Prioridad_Tarea'])
+					{
+						case 1:
+						echo "<select name='Prioridad_Tarea'>
+						  <option value='4'>-</option>
+						  <option value='1' selected>Alta</option>
+						  <option value='2'>Media</option>
+						  <option value='3'>Baja</option>
+						</select> ";
+						break;
+						case 2:
+						echo "<select name='Prioridad_Tarea'>
+						  <option value='4'>-</option>
+						  <option value='1'>Alta</option>
+						  <option value='2' selected>Media</option>
+						  <option value='3'>Baja</option>
+						</select> ";
+						break;
+						case 3:
+						echo "<select name='Prioridad_Tarea'>
+						  <option value='4'>-</option>
+						  <option value='1'>Alta</option>
+						  <option value='2'>Media</option>
+						  <option value='3' selected>Baja</option>
+						</select> ";
+						break;
+						case 4:
+						echo "<select name='Prioridad_Tarea'>
+						  <option value='4' selected>-</option>
+						  <option value='1'>Alta</option>
+						  <option value='2'>Media</option>
+						  <option value='3'>Baja</option>
+						</select> ";
+						break;
+						default;
+						echo "<select name='Prioridad_Tarea'>
+						  <option value='4' selected>-</option>
+						  <option value='1'>Alta</option>
+						  <option value='2'>Media</option>
+						  <option value='3'>Baja</option>
+						</select> ";
+					}
+					
+					
                      echo "</td>
+					 </tr>
+					 
+					 <tr>
 					 <td>Estado:</td>
 					<td>";
 					switch ($row['Estado_Tarea'])
@@ -314,41 +429,37 @@ echo " <div class='inner'>
 							
 						}
 					echo "</td>
-                      		</tr>
 							
-							<tr>
 							<td>Etiqueta:</td>
                            	<td><input type='text' class='text' value='".$row['Etiqueta_Tarea']."'/ name='Etiqueta_Tarea'></td>	
+						</tr>
+						<tr>	
 							<td>Descripcion:</td>
                            	<td colspan='3'><input type='text' class='text' value='".$row['Descripcion_Tarea']."'/ name='Descripcion_Tarea'></td>
                           	</tr>
 							
 							<tr>
-                               	<td colspan='2'>Fecha Inicio Estimada:</td>
+                               	<td>Fecha Inicio Estimada:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Inicio']."'></td>
-                               	<td colspan='2'>Fecha Fin Estimada:</td>
+                               	<td>Fecha Fin Estimada:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Estimada']."'></td>
                           	</tr>
+							
 							<tr>
-                           		<td  colspan='2'>Fecha Inicio Real:</td>
+                           		<td>Fecha Inicio Real:</td>
                                	<td><input type='date' disabled value='".$row['Fecha_Inicio_Real']."'></td>
-                               	<td colspan='2'>Fecha Fin Real:</td>
+                               	<td>Fecha Fin Real:</td>
                                	<td><input type='date' disabled/ value='".$row['Fecha_Fin_Real']."'></td>
                           	</tr>
 							
 							<tr>
 								<td></td>
-                           		<td colspan='2'>Proyecto:</td>
-                              	<td colspan='2'><input type='text' disabled class='text' value=' ";
-								if ( $row['Nombre_Proyecto'] == "" )
-								{
-								echo "SIN PROYECTO";
-								}
-								else
-								{
-								echo $row['Nombre_Proyecto'] ;
-								}
-								echo "'/></td>
+                           		<td>Proyecto:</td>
+                              	<td>
+								<select name='Nombre_Proyecto'>";
+								ListarProyectos_AltaTarea($ID_Usuario);
+								echo "</select>
+								</td>
 								<td></td>
                           	</tr>
 							
@@ -357,7 +468,7 @@ echo " <div class='inner'>
                       	<table>
 							<tr> 
 							<td width='25%'>
-							<th colspan='4'><input type='submit' name='accion' value='GUARDAR'></th> 
+							<th colspan='4'><input type='submit' name='guardar' value='GUARDAR'></th> 
 							</td>
 							<td width='25%'>
 							</td>

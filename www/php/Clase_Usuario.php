@@ -287,12 +287,4 @@ function Modificar_Usuario($ID_Usuario)
 		    }
 			  
 
-function Guardar_Modificacion()
-{
-echo "IMPLEMENTAR GUARDAR MODIFICACION CON DATOS:";
-echo $Login_Usuario;
-echo $Password_Usuario;
-
-}
-
 ?>
