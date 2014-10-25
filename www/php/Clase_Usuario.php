@@ -18,11 +18,7 @@ if (isset($_POST['ID_Usuario'])) {
 	} else {
 	$accion = "";
 	}
-	if ($accion == 'DARSE DE BAJA :('){
-	echo "LLAMA A DARSE DE BAJA, VALOR USUARIO:";
-		echo $ID_Usuario;
-//		Baja_Usuario();
-	}
+	
 class Usuario
 {
 
@@ -145,35 +141,56 @@ function Login_Usuario()
 
 }//fin de clase
 
-function Baja_Usuario(){
+function Baja_Usuario($ID_Usuario){
 
 	ConectarDB();
-/*
-		$sql = "select * from Usuario where ID_Usuario = '$ID_Usuario.'";
+
+		$sql = "select * from Usuario where ID_Usuario= '".$ID_Usuario."'";
 		echo $sql;
         $resultado = mysql_query($sql) or die(mysql_error());
 		$res = mysql_fetch_array($resultado);
         if (mysql_num_rows($resultado) == 1){
 		
-			//delete * from Usuario where ID_Usuario = "$ID_Usuario";
+		
+			echo " existe";
+			$sql_delete="DELETE FROM Usuario where ID_Usuario = '".$ID_Usuario."'";
+			echo $sql_delete;
+			$resul_delete = mysql_query($sql_delete) or die("¡No se ha podido eliminar el registro!");
+			Cerrar_Sesion();
+		}
+		else
+		{
+			header('location: /Index.php');
 		}
 
-*/
 }//fin Baja_Usuario
 
 function Consultar_Usuario($ID_Usuario)
 {
     ConectarDB();
+	
+	
+	if (isset($_POST['baja'])) {
+	
+		if (isset($_GET['ID_Usuario'])) {
+		$ID_Usuario = $_GET['ID_Usuario'];
+		} else {
+		$ID_Usuario = "NULL";
+		}
+			Baja_Usuario($ID_Usuario);
+	}
+	
+	
     $sql = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
     $resultado = mysql_query($sql) or die(mysql_error());
 	$row = mysql_fetch_array($resultado) or die(mysql_error());
 	
-	echo "<form name='FormConsultar_Usuario' id='FormConsultar_Usuario' action='php/Clase_Usuario.php' method='post'>
+	echo "<form name='FormConsultar_Usuario' id='FormConsultar_Usuario' action='Perfil.php?ID_Usuario=$ID_Usuario' method='post' onsubmit='return Confirmar_BajaUsuario()'>
 					<div style='height:350px;width:auto;overflow-y: scroll;'>
 					<table class='default'>
 						<tr> 
 						<td>USUARIO:</td> 
-                         <td><input type='text' disabled class='text' value='".$row['Nombre_Usuario']."' / name='Nombre_Usuario'></td>
+                         <td><input type='text' disabled class='text' value='$ID_Usuario' / name='Nombre_Usuario'></td>
                                	<td>CORREO:</td>
                               	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' / name='Email_Usuario'></td>
                           	</tr>
@@ -206,7 +223,7 @@ function Consultar_Usuario($ID_Usuario)
                       	<table class='alternative'>
                           	<tr>
                              	<td></td>
-                               	<td><input type='submit' name = 'accion' value='DARSE DE BAJA :('/></a></td>
+                               	<td><input type='submit' name='baja' value='DARSE DE BAJA :('/></a></td>
                               	<td colspan='4'><a href='EditarPerfil.php'><input type='button' value='MODIFICAR'></a></td>
                           	</tr>
                       	</table>

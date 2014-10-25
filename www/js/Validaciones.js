@@ -122,3 +122,15 @@ function Confirmar_Modificacion()
 	}
 }
 
+function Confirmar_BajaUsuario()
+{
+	if(confirm("¿Deseas darte de baja?"))
+	{
+		alert("Muchas gracias");
+		return true;
+	}		
+	else
+	{
+		return false;
+	}
+}
