@@ -268,8 +268,8 @@ ConectarDB();
 
 if(isset($_POST['guardar'])){
 	
-	if (isset($_POST['Nombre_Proyecto'])) {
-	$Nombre_Proyecto = $_POST['Nombre_Proyecto'];
+	if (isset($_POST['Nombre_Proyecto'])) { 
+		$Nombre_Proyecto = $_POST['Nombre_Proyecto'];
 	} else {
 	$Nombre_Proyecto = "NULL";
 	}
@@ -321,8 +321,18 @@ if(isset($_POST['guardar'])){
 	} else {
 	$Fecha_Fin_Real = "NULL";
 	}
-	
-	$sql = "UPDATE Tarea SET Nombre_Proyecto='$Nombre_Proyecto',
+	//VALIDAMOS CAMPO NULL EN PROYECTO
+	$sql = "UPDATE Tarea SET Nombre_Proyecto=";
+	if ($_POST['Nombre_Proyecto'] == "NULL")
+	{
+	$Nombre_Proyecto="$Nombre_Proyecto";
+	}
+	else
+	{
+	$Nombre_Proyecto="'$Nombre_Proyecto'";
+	}
+	// FIN VALIDACION
+	$sql2= $sql . $Nombre_Proyecto. ",
 					Descripcion_Tarea='$Descripcion_Tarea',
 					Etiqueta_Tarea='$Etiqueta_Tarea',
 					Estado_Tarea='$Estado_Tarea',
@@ -331,8 +341,9 @@ if(isset($_POST['guardar'])){
 					Fecha_Fin_Estimada='$Fecha_Fin_Estimada',
 					Fecha_Inicio_Real='$Fecha_Inicio_Real',
 					Fecha_Fin_Real='$Fecha_Fin_Real'
-					WHERE ID_Usuario='$ID_Usuario' and Nombre_Tarea='$Nombre_Tarea'"  ;
-				$resultado = mysql_query($sql) or die(mysql_error());
+					WHERE ID_Usuario='$ID_Usuario' and Nombre_Tarea='$Nombre_Tarea'"  ;			
+
+				$resultado = mysql_query($sql2) or die(mysql_error());
 				header('location: /DetallesTarea.php?ID_Usuario='.$ID_Usuario.'&Nombre_Tarea='.$Nombre_Tarea.'');
 }
 

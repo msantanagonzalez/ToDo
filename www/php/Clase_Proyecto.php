@@ -139,6 +139,7 @@ function ListarProyectos_AltaTarea($ID_Usuario){
 ConectarDB();
 $sql = "select Nombre_Proyecto from Proyecto where ID_Usuario = '$ID_Usuario'";
 $resultado=mysql_query($sql) or die(mysql_error());
+echo "<option value='NULL' name='Nombre_Proyecto'>-</option>";
 	while($row = mysql_fetch_array($resultado)){								
 		
 		echo "<option value='".$row['Nombre_Proyecto']."' name='Nombre_Proyecto'>'".$row['Nombre_Proyecto']."'</option>";
