@@ -303,5 +303,122 @@ function Modificar_Usuario($ID_Usuario)
 		
 		    }
 			  
-
+function Buscar($ID_Usuario){
+		ConectarDB();
+		if(isset($_POST['buscar'])){			
+			$busqueda = $_POST['busqueda'];
+		}
+		
+	echo "<h1 id='header'><a>- RESULTADO EN TAREAS -</a></h1>
+	<table class='default'><!--TABLA-->
+                       		<tr>
+                            	<th width='20%'>Tarea</th>
+                                <th width='20%'>Proyecto</th>
+                           		<th width='20%'>Prioridad</th>
+								<th width='20%'>Estado</th>
+                            	<th width='20%'>EDITAR</th>
+                     		</tr>
+                    	</table>
+                  	<div style='height:170px;width:auto;overflow-y: scroll;'>
+                   		<table class='default'>";
+		
+		$sqlTarea = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea LIKE '%$busqueda%' order by Prioridad_Tarea";	
+		$resultadoTarea=mysql_query($sqlTarea) or die(mysql_error());
+		while($row = mysql_fetch_array($resultadoTarea)){
+			echo "<form>";
+								echo "<tr>"; 
+								echo "<td width='25%'>
+	<a href='DetallesTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'>"; 
+								echo  $row['Nombre_Tarea'] ;
+								echo "</a></td>";
+                            	echo "<td width='25%'>
+	<a href='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."'>";
+								echo $row['Nombre_Proyecto'];
+								echo "</a></td>";
+								echo "<td width='25%'>";
+								switch ($row['Prioridad_Tarea'])
+								{
+									case 1:
+									echo "Alta";
+									break;
+									case 2:
+									echo "Media";
+									break;
+									case 3:
+									echo "Baja";
+									break;
+									case 4:
+									echo "-";
+									break;
+									default:
+									echo "-";
+								}
+								echo "</a></td>";
+								echo "<td width='25%'>";
+								echo $row['Estado_Tarea'];
+								echo "</td>";
+								echo "<td width='25%'><a href='EditarTarea.php?Nombre_Tarea=".$row['Nombre_Tarea']."'><button type='button' name='accion'>Editar</button></a></td>";
+								echo "</a></td>";
+                       		echo "</tr>";
+							echo "</form>";
+							
+		}
+		
+	echo "</table></div><br>";	
+	
+	echo "<h1 id='header'><a>- RESULTADO EN PROYECTOS -</a></h1>
+	<table class='default'>
+    	<tr>
+			<th width='20%'>Proyecto</th>
+			<th width='20%'>Tareas</th>
+			<th width='20%'>Prioridad</th>
+			<th width='20%'>EDITAR</th>
+		</tr>
+ 	</table>
+   	<div style='height:170px; width:auto; overflow-y: scroll;'>
+  	<table class='default'>";	
+		
+		$sqlProyecto = "select * from Proyecto where ID_Usuario = '$ID_Usuario' and Nombre_Proyecto LIKE '%$busqueda%' order by Prioridad_Proyecto";
+		$resultadoProyecto=mysql_query($sqlProyecto) or die(mysql_error());
+		while($row = mysql_fetch_array($resultadoProyecto)){
+			echo "<form action='EditarProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."&Prioridad=".$row['Prioridad_Proyecto']."' method='post'>";
+								echo "<tr>"; 
+                            	echo "<td width='20%'>
+<a href='DetallesProyecto.php?Nombre_Proyecto=".$row['Nombre_Proyecto']."'>";
+								echo $row['Nombre_Proyecto'];
+								echo "</a></td>";
+								echo "<td width='20%'>";
+								$sql2 = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Proyecto='".$row['Nombre_Proyecto']."'";
+								$result2 = mysql_query($sql2); 
+								$cantidad = mysql_num_rows($result2);
+								echo $cantidad;
+								echo "</td>";
+								
+								echo "<td width='20%'>";
+								switch ($row['Prioridad_Proyecto'])
+								{
+									case 1:
+									echo "Alta";
+									break;
+									case 2:
+									echo "Media";
+									break;
+									case 3:
+									echo "Baja";
+									break;
+									default:
+									echo "Sin prioridad";
+								}
+								echo "</td>";
+										echo "<td width='20%'><button type='submit' name='accion'>Editar</button>
+												<button type='submit' name='delete' onclick='return Confirmar_EliminacionProyecto()'>Borrar</button>
+											 </td>";
+									echo "</td>";
+                       		echo "</tr>";
+							echo "</form>";
+		}
+		
+	echo "</table></div><br>";
+	
+	}
 ?>

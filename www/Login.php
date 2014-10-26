@@ -1,4 +1,8 @@
 <!DOCTYPE HTML>
+<?php 
+require "php/FuncionesGenerales.php";
+session_start();
+?>
 <html>
 
 	<head>

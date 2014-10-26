@@ -38,9 +38,9 @@ class Nav{
 							<li class='current'><a href='ListadoProyectos.php'>LISTADO PROYECTOS.</a></li>
                             <li class='current'><a href='ListadoTareas.php'>LISTADO TAREAS.</a></li>
 							<li class='current'><a href='/php/Cerrar_Sesion.php' id='Logout_Usuario' onclick ='return Salir_Usuario()'>Log Out >]</a></li>
-                            <form method='POST' action='AdminResultadosBusqueda.php' style='text-align:center'>
+                            <form method='POST' action='ResultadosBusqueda.php' style='text-align:center'>
                         	<section class='box search'>
-								<input type='text' name='busqueda' placeholder='Buscar...' value=''/>
+								<input type='text' name='busqueda' placeholder='Buscar...'/>
                       		</section>
 								<div hidden><input type='submit' name='buscar'/></div>
                             </form>
