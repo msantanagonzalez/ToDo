@@ -69,6 +69,195 @@ function __destruct()
 
 }//fin de clase
 
+function Formulario_AltaTarea($ID_Usuario,$Nombre_Proyecto)
+{
+ConectarDB(); 
+if(isset($_POST['alta'])){
+
+if (isset($_POST['Nombre_Tarea'])) { 
+		$Nombre_Tarea = $_POST['Nombre_Tarea'];
+	} else {
+	$Nombre_Tarea = "NULL";
+	}
+
+if (isset($_POST['Nombre_Proyecto'])) { 
+		$Nombre_Proyecto = $_POST['Nombre_Proyecto'];
+	} else {
+	$Nombre_Proyecto = $Nombre_Proyecto;
+	}
+	
+	if (isset($_POST['Descripcion_Tarea'])) {
+	$Descripcion_Tarea = $_POST['Descripcion_Tarea'];
+	} else {
+	$Descripcion_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Etiqueta_Tarea'])) {
+	$Etiqueta_Tarea = $_POST['Etiqueta_Tarea'];
+	} else {
+	$Etiqueta_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Estado_Tarea'])) {
+	$Estado_Tarea = $_POST['Estado_Tarea'];
+	} else {
+	$Estado_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Prioridad_Tarea'])) {
+	$Prioridad_Tarea = $_POST['Prioridad_Tarea'];
+	} else {
+	$Prioridad_Tarea = "NULL";
+	}
+	
+	if (isset($_POST['Fecha_Inicio'])) {
+	$Fecha_Inicio = $_POST['Fecha_Inicio'];
+	} else {
+	$Fecha_Inicio = "NULL";
+	}
+	
+	if (isset($_POST['Fecha_Fin_Estimada'])) {
+	$Fecha_Fin_Estimada = $_POST['Fecha_Fin_Estimada'];
+	} else {
+	$Fecha_Fin_Estimada = "NULL";
+	}
+	
+	if (isset($_POST['Fecha_Inicio_Real'])) {
+	$Fecha_Inicio_Real = $_POST['Fecha_Inicio_Real'];
+	} else {
+	$Fecha_Inicio_Real = NULL;
+	}
+	
+	if (isset($_POST['Fecha_Fin_Real'])) {
+	$Fecha_Fin_Real = $_POST['Fecha_Fin_Real'];
+	} else {
+	$Fecha_Fin_Real = NULL;
+	}
+	
+	
+
+	$sql = "select * from Tarea where Nombre_Tarea = '$Nombre_Tarea' and ID_Usuario= '$ID_Usuario'";
+	$resultado = mysql_query($sql) or die(mysql_error());
+			if (mysql_num_rows($resultado) == 0)
+        {
+			$sql = "INSERT INTO Tarea(Nombre_Tarea, ID_Usuario, Nombre_Proyecto, Descripcion_Tarea, Etiqueta_Tarea, Estado_Tarea, Prioridad_Tarea,Fecha_Inicio, Fecha_Fin_Estimada, Fecha_Inicio_Real, Fecha_Fin_Real)
+			values (
+					'$Nombre_Tarea',
+					'$ID_Usuario',";
+					//VALIDAMOS CAMPO NULL EN PROYECTO
+					if ($Nombre_Proyecto == "NULL")
+					{
+					$Nombre_Proyecto="$Nombre_Proyecto";
+					}
+					else
+					{
+					$Nombre_Proyecto="'$Nombre_Proyecto'";
+					}
+					// FIN VALIDACION
+					$sql2= $sql . $Nombre_Proyecto. ",
+					'$Descripcion_Tarea',
+					'$Etiqueta_Tarea',
+					'$Estado_Tarea',
+					'$Prioridad_Tarea',
+					'$Fecha_Inicio',
+					'$Fecha_Fin_Estimada',
+					'$Fecha_Inicio_Real',
+					'$Fecha_Fin_Real')";
+			mysql_query($sql2);
+			
+			header('location: /ListadoTareas.php');
+		}
+		else{
+			header('location: /Error_Alta_Tarea.php?Nombre_Proyecto='.$Nombre_Proyecto.'');
+		}
+	
+}
+
+echo "<!--INICIO TABLA-->
+				<br>
+				<form name='FormAlta_Tarea' id='FormAlta_Tarea' action='AgregarTarea.php?Nombre_Proyecto=$Nombre_Proyecto' method='post'>
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
+				<table class='default'>
+				
+                   <tr>
+					<td>Titulo:</td>
+					<td><input type='text' required class='text' name='Nombre_Tarea'/></td>
+					<td>Prioridad:</td>
+					<td>
+						<select name='Prioridad_Tarea'>
+						  <option value='4' selected>-</option>
+						  <option value='1'>Alta</option>
+						  <option value='2'>Media</option>
+						  <option value='3'>Baja</option>
+						</select> 		
+                     </td>
+					 </tr>
+					
+					<tr>
+					 <td>Estado:</td>
+					<td>
+					<select name='Estado_Tarea'>
+						  <option value='Creada' selected>Creada</option>
+						  <option value='En Curso'>En Curso</option>
+						</select> 
+					</td>
+					<td>Etiqueta:</td>
+					<td><input type='text' class='text' name='Etiqueta_Tarea'/></td>	
+					</tr>
+					</tr>
+							<td>Descripcion:</td>
+                           	<td colspan='3'><input type='text' class='text' name='Descripcion_Tarea'/></td>
+                    </tr>
+							
+							<tr>
+                               	<td>Fecha Inicio:</td>
+                               	<td><input type='date' disabled/></td>
+                               	<td>Fecha Fin:</td>
+                               	<td><input type='date' disabled/></td>
+                          	</tr>
+							
+							<tr>
+								<td></td>
+                           		<td>Proyecto:</td>";
+								if ($Nombre_Proyecto !== "NULL")
+								{
+                              	echo "<td><input type='text' disabled class='text' value='$Nombre_Proyecto' name='Nombre_Proyecto'/></td>";
+								}
+								else
+								{
+								echo "<td>
+								<select name='Nombre_Proyecto'>";
+								ListarProyectos_AltaTarea($ID_Usuario);
+								echo "</select> </td>";
+								}
+                          	echo "</tr>
+							
+                		</table>
+                 	</div>
+                      	<table>
+							<tr> 
+							<td width='25%'>";
+							if ($Nombre_Proyecto == "NULL")
+								{
+                            echo "<th colspan='4'><a href='Index.php'><input type='button' value='Volver'></a></th>"; 
+								}
+								else
+								{
+							echo "<th colspan='4'><a href='DetallesProyecto.php?Nombre_Proyecto=$Nombre_Proyecto'><input type='button' value='Volver'></a></th>"; 
+								}
+							echo "</td>
+							<td width='25%'>
+							<input type='submit' name='alta' value='Alta'>
+							</td>
+							<td width='25%'>
+							</td>
+							</tr>
+                    	</table>
+						</form>
+				  <!-- FIN TABLA --> ";
+}
+
+
 function ListarTareas($ID_Usuario,$Estado_Tarea)
 {
 ConectarDB();
@@ -350,8 +539,13 @@ if(isset($_POST['guardar'])){
 $sql = "select * from Tarea where ID_Usuario = '$ID_Usuario' and Nombre_Tarea = '$Nombre_Tarea'";	
 $resultado=mysql_query($sql) or die(mysql_error());
 $row = mysql_fetch_array($resultado);
-
-echo " <div class='inner'>
+//Validamos estado tarea
+if ( $row['Estado_Tarea'] == "Finalizada" )
+{
+header('location: /DetallesTarea.php?ID_Usuario='.$ID_Usuario.'&Nombre_Tarea='.$Nombre_Tarea.'');
+}
+// Fin validar estado tarea
+echo "<div class='inner'>
 		<h1 id='header'><a>- DETALLES $Nombre_Tarea -</a></h1> <!--SECCIÓN-->
 		<!--INICIO TABLA-->
 		<br>
@@ -467,7 +661,7 @@ echo " <div class='inner'>
 								<td></td>
                            		<td>Proyecto:</td>
                               	<td>
-								<select name='Nombre_Proyecto'>";
+								<select name='Nombre_Proyecto' autofocus>";
 								ListarProyectos_AltaTarea($ID_Usuario);
 								echo "</select>
 								</td>

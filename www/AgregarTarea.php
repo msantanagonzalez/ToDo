@@ -5,6 +5,12 @@ require 'php/Nav.php';
 session_start();
 Validar_Sesion();
 $nav = new Nav;
+
+if (isset($_GET['Nombre_Proyecto'])) {
+	$Nombre_Proyecto = $_GET['Nombre_Proyecto'];
+	} else {
+	$Nombre_Proyecto = "NULL";
+	}
 ?>
 <html>
 
@@ -30,59 +36,9 @@ $nav = new Nav;
 			<div id="content"><!--CONTENIDO-->
 				<div class="inner">
                	  <h1 id="header"><a>- AGREGAR TAREA -</a></h1> <!--SECCIÓN-->
-				  <form name="Agregar_Tarea" id="Agregar_Tarea" method="post">
-                	<!--INICIO TABLA-->
-					<br>
-					<div style="height:350px;width:auto;overflow-y: scroll;">
-                    	<table class="default">
-                        	<tr>
-                              	<td>Nombre:</td>
-                               	<td><input type="text"  class="text" placeholder="T&iacute;tulo de la tarea..."/ name="Nombre_Tarea" required onfocus></td>
-                                <td>Prioridad:</td>
-                                <td>
-                              		<select required>
-                              			<option value="4" name="Prioridad_Tarea">Sin Prioridad</option>
-                        				<option value="3" name="Prioridad_Tarea">Baja</option>
-                               			<option value="2" name="Prioridad_Tarea">Media</option>
-                              			<option value="1" name="Prioridad_Tarea">Alta</option>
-                               	 	</select>
-                              	</td>
-                      		</tr>
-                          	<tr>
-                           		<td>Descripcion:</td>
-                           		<td colspan="3"><input type="text" class="text" placeholder="Apartado para notas..."/ name="Descripcion_Tarea"></td>
-                          	</tr>
-                           	<tr>
-                               	<td>Fecha Inicio:</td>
-                               	<td><input type="date" / name="Fecha_Inicio"></td>
-                               	<td>Fecha Fin:</td>
-                               	<td><input type="date" / name="Fecha_Fin_Estimada"></td>
-                          	</tr>
-                          	<tr>
-                              	<td>Estado:</td>
-                                <td>
-                              		<select id="Estado_Tarea" required >
-                              			<option value="1" name="Estado_Tarea" selected>Creada</option>
-										<option value="2" name="Estado_Tarea">En Curso</option>
-                               	 	</select>									
-                                </td>
-								<td>Proyecto:</td>
-								<td>
-								<select id="Nombre_Proyecto" required >
-                              		<?php
-									ListarProyectos_AltaTarea($_SESSION["ID_Usuario"]);
-									?>
-								</select>									
-                                </td>
-                          	</tr>
-                		</table>
-					
-                 	</div>
-                       <table>
-                       		<tr> <th colspan="4"><input type="submit" value="AGREGAR" name="accion"/></th> </tr>
-                    	</table>
-					<!-- FIN TABLA -->
-                   </form>
+				  <?php
+				  Formulario_AltaTarea($_SESSION["ID_Usuario"],$Nombre_Proyecto);
+				  ?>
 				</div>
 			</div>
 		</div>
