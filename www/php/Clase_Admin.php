@@ -26,7 +26,7 @@ class Admin{
 				echo "<td width='20%'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='20%'>" . $row['Nombre_Proyecto'] . "</td>";
 				echo "<td width='20%'>"; switch ($row['Prioridad_Tarea']){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
-case 4:echo "-";break;default:echo "-";} "</td>";
+case 4:echo "-";break;default:echo "-";} echo "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -51,7 +51,7 @@ case 4:echo "-";break;default:echo "-";} "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
 				echo "<td width='20%'>" . $row[2] . "</td>";
 				echo "<td width='20%'>"; switch ($row[3]){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
-case 4:echo "-";break;default:echo "-";}  "</td>";
+case 4:echo "-";break;default:echo "-";}  echo "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarProyecto.php?editarP=$row[0]&usuario=$row[1]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -76,7 +76,7 @@ case 4:echo "-";break;default:echo "-";}  "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
 				echo "<td width='20%'>" . $row[2] . "</td>";
 				echo "<td width='20%'>"; switch ($row[3]){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
-case 4:echo "-";break;default:echo "-";} "</td>";
+case 4:echo "-";break;default:echo "-";} echo "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -170,7 +170,7 @@ case 4:echo "-";break;default:echo "-";} "</td>";
 				echo "<td width='20%'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='20%'>" . $row['Nombre_Proyecto'] . "</td>";
 				echo "<td width='20%'>"; switch ($row['Prioridad_Tarea']){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
-case 4:echo "-";break;default:echo "-";} "</td>";
+case 4:echo "-";break;default:echo "-";} echo "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
@@ -197,7 +197,7 @@ case 4:echo "-";break;default:echo "-";} "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
 				echo "<td width='20%'>" . $row[2] . "</td>";
 				echo "<td width='20%'>"; switch ($row['Prioridad_Tarea']){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
-case 4:echo "-";break;default:echo "-";} "</td>";
+case 4:echo "-";break;default:echo "-";} echo "</td>";
 				echo "<td width='17%'>" . "<form action='../AdminEditarProyecto.php?editarP=$row[0]&usuario=$row[1]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
