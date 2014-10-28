@@ -235,7 +235,13 @@ function Modificar_Usuario($ID_Usuario)
     ConectarDB();
 		
 		if(isset($_POST['accion'])){
-	
+
+		    $s = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
+			$r = mysql_query($s) or die(mysql_error());
+			$tupla = mysql_fetch_array($r) or die(mysql_error());
+
+			if($tupla['Password_Usuario'] == $_POST['Password_Usuario']){
+		
 					$sql = "UPDATE Usuario SET Nombre_Usuario='".$_POST['Nombre_Usuario']."',
 					Apellido1_Usuario='".$_POST['Apellido1_Usuario']."',
 					Apellido2_Usuario='".$_POST['Apellido2_Usuario']."',
@@ -247,7 +253,13 @@ function Modificar_Usuario($ID_Usuario)
 					WHERE ID_Usuario = '".$ID_Usuario."'" ;
 				$resultado = mysql_query($sql) or die(mysql_error());
 				header('location: /Perfil.php');
-				}
+			}else{
+			?>
+				<script language="javascript"> alert("PASSWORD INCORRECTO."); </script>
+			<?php
+				//echo "<h1> password incorrecto </h1>";
+			}
+		}
 			
 	
     $sql = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
@@ -302,83 +314,6 @@ function Modificar_Usuario($ID_Usuario)
 					</form> ";	
 		
 		    }
-			  
-function Modificar_Pass($ID_Usuario){
-
-   ConectarDB();
-   
-   
-   
-
-if(isset($_POST['accion'])){
-
-$Pass1 = $_POST['Pass_Nuevo'];
-$Pass1_conf = $_POST['Pass_Nuevo_Conf'];
-$Pass2 = $_POST['Pass_Actual'];
-
-if($_POST['Pass_Nuevo'] == $_POST['Pass_Nuevo_Conf']){
-
-	
-					$s = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
-					$r = mysql_query($s) or die(mysql_error());
-					$tupla = mysql_fetch_array($r) or die(mysql_error());
-					
-					if($tupla['Password_Usuario'] == $_POST['Pass_Actual']){
-					
-					$sql = "UPDATE Usuario SET Password_Usuario='".$_POST['Pass_Nuevo']."'
-					WHERE ID_Usuario = '".$ID_Usuario."'" ;
-					
-					$resultado = mysql_query($sql) or die(mysql_error());
-				     header('location: /Perfil.php');
-					
-					}
-					
-					else{
-					echo "El Pass introducido no coincide";
-					
-					}
-					
-
-					
-					
-}
-
-else{
-echo "Los nuevos passwords no coinciden";
-
-}
-}
-
-echo 			"<form name='FormModificar_Pass' id='FormModificar_Pass' action='EditarPass.php' method='post' >
-					
-					<div style='height:350px;width:auto;overflow-y: scroll;'>
-                    	<table class='default'>
-                        	<tr>
-                              	<td>PASSWORD ACTUAL:</td>
-                               	<td><input type='text' required class='text' name= 'Pass_Actual' placeholder='Password actual'/></td>
-								<td>PASSWORD NUEVO:</td>
-								<td><input type='text' required class='text' name= 'Pass_Nuevo' placeholder='Password nuevo'/></td>
-								<td>PASSWORD NUEVO CONFIRMACION:</td>
-								<td><input type='text' required class='text' name= 'Pass_Nuevo_Conf' placeholder='Confirmacion del nuevo password'/></td>
-                      		</tr>
-						</table>
-						
-						
-						<table class='alternative'>
-                          	<tr>
-							<td width='30%'></td>
-                              	<td width='10%' colspan='4'><input type='submit' name='accion' value='MODIFICAR'></a></td>
-								<td width='25%'></td>
-                          	</tr>
-                      	</table>
-						
-						
-					</form>  ";
-                    	
-						
-}
-			  
-			  
 			  
 function Buscar($ID_Usuario){
 		ConectarDB();
