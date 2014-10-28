@@ -13,6 +13,21 @@ var PassTwo=document.getElementById("Password2_Usuario").value;
 	}
 }
 
+function Validar_NuevoPass()
+{
+	var PassOne=document.getElementById("Pass_Nuevo").value;
+	var PassTwo=document.getElementById("Pass_Nuevo_Conf").value;
+	if ( PassOne == PassTwo)
+	{
+		return true
+	}
+	else
+	{
+		alert("|ERROR| Los PASSWORDS deben ser iguales");
+		return false;
+	}
+}
+
 function Fecha_Sistema()
 {
 var f = new Date();
@@ -134,3 +149,4 @@ function Confirmar_BajaUsuario()
 		return false;
 	}
 }
+

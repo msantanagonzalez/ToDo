@@ -37,6 +37,7 @@ class Nav{
 							<li class='current'><strong><a href='AgregarTarea.php'>NUEVA TAREA (+)</a></strong></li>
 							<li class='current'><a href='ListadoProyectos.php'>LISTADO PROYECTOS.</a></li>
                             <li class='current'><a href='ListadoTareas.php'>LISTADO TAREAS.</a></li>
+							<li class='current'><a href='EditarPass.php'>CAMBIAR PASS.</a></li>
 							<li class='current'><a href='/php/Cerrar_Sesion.php' id='Logout_Usuario' onclick ='return Salir_Usuario()'>Log Out >]</a></li>
                             <form method='POST' action='ResultadosBusqueda.php' style='text-align:center'>
                         	<section class='box search'>

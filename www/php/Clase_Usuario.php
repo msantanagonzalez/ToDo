@@ -315,17 +315,11 @@ function Modificar_Usuario($ID_Usuario)
 		
 		    }
 						
-			function Modificar_Pass($ID_Usuario){
-   
-   
-   
-   
-
+function Modificar_Pass($ID_Usuario){
 if(isset($_POST['accion'])){
+	ConectarDB();
 
-ConectarDB();
-
-if($_POST['Pass_Nuevo'] == $_POST['Pass_Nuevo_Conf']){
+	if($_POST['Pass_Nuevo'] == $_POST['Pass_Nuevo_Conf']){
 
 	
 					$s = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
@@ -343,8 +337,9 @@ if($_POST['Pass_Nuevo'] == $_POST['Pass_Nuevo_Conf']){
 					}
 					
 					else{
-					echo "El Pass introducido no coincide";
-					
+					?>
+				<script language="javascript"> alert("PASSWORD INCORRECTO."); </script>
+			<?php
 				}					
 }
 
@@ -352,17 +347,21 @@ else{
 echo "Los nuevos passwords no coinciden";
 }
 }
-echo 			"<form name='FormModificar_Pass' id='FormModificar_Pass' action='EditarPass.php' method='post' >
+echo 			"<form name='FormModificar_Pass' id='FormModificar_Pass' onsubmit='return Validar_NuevoPass()' action='EditarPass.php' method='post'>
 					
 					<div style='height:350px;width:auto;overflow-y: scroll;'>
                     	<table class='default'>
                         	<tr>
                               	<td>PASSWORD ACTUAL:</td>
-                               	<td><input type='text' required class='text' name= 'Pass_Actual' placeholder='Password actual'/></td>
+                               	<td><input type='password' required name= 'Pass_Actual' placeholder='Password actual'/></td>
+							</tr>
+							<tr>
 								<td>PASSWORD NUEVO:</td>
-								<td><input type='text' required class='text' name= 'Pass_Nuevo' placeholder='Password nuevo'/></td>
+								<td><input type='password' required name= 'Pass_Nuevo' id='Pass_Nuevo' placeholder='Password nuevo'/></td>
+							</tr>	
+							<tr>
 								<td>PASSWORD NUEVO CONFIRMACION:</td>
-								<td><input type='text' required class='text' name= 'Pass_Nuevo_Conf' placeholder='Confirmacion del nuevo password'/></td>
+								<td><input type='password' required name= 'Pass_Nuevo_Conf' id='Pass_Nuevo_Conf' placeholder='Confirmacion del nuevo password'/></td>
                       		</tr>
 						</table>
 						
