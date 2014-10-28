@@ -326,7 +326,7 @@ if(isset($_POST['accion'])){
 					$r = mysql_query($s) or die(mysql_error());
 					$tupla = mysql_fetch_array($r) or die(mysql_error());
 					
-					if($tupla['Password_Usuario'] == $_POST['Pass_Actual']){
+					if($tupla['Password_Usuario'] == $_POST['Password_Usuario']){
 					
 					$sql = "UPDATE Usuario SET Password_Usuario='".$_POST['Pass_Nuevo']."'
 					WHERE ID_Usuario = '".$ID_Usuario."'" ;
@@ -353,7 +353,7 @@ echo 			"<form name='FormModificar_Pass' id='FormModificar_Pass' onsubmit='retur
                     	<table class='default'>
                         	<tr>
                               	<td>PASSWORD ACTUAL:</td>
-                               	<td><input type='password' required name= 'Pass_Actual' placeholder='Password actual'/></td>
+                               	<td><input type='password' required name= 'Password_Usuario' id = 'Password_Usuario' placeholder='Password actual'/></td>
 							</tr>
 							<tr>
 								<td>PASSWORD NUEVO:</td>

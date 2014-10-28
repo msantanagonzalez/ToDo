@@ -23,7 +23,7 @@ CREATE TABLE `Usuario` (
   `Nombre_Usuario` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
   `Apellido1_Usuario` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
   `Apellido2_Usuario` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
-  `Password_Usuario` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
+  `Password_Usuario` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
   `Fecha_Nacimiento` date DEFAULT NULL,
   `Calle_Usuario` varchar(35) COLLATE latin1_spanish_ci DEFAULT NULL,
   `N_Portal_Usuario` varchar(5) COLLATE latin1_spanish_ci DEFAULT NULL,
@@ -71,10 +71,11 @@ CREATE TABLE `Tarea` (
 
 /* 3.1- Tabla usuario     */
 INSERT INTO Usuario (ID_Usuario,Email_Usuario,Nombre_Usuario,Apellido1_Usuario,Apellido2_Usuario,Password_Usuario,Fecha_Nacimiento,Calle_Usuario,N_Portal_Usuario,Provincia_Usuario,CP_Usuario,Tipo_Usuario) 
-VALUES ("MS01","example@server.com","Marco","Santana","Gonzalez",123456,1991-15-04,"Calle1","p1","Ourense",32005,1),
-('admin', 'admin@example.com', 'admin', 'adminapel', 'adminapel2', 'admin', '0000-00-00', 'NULL', 'NULL', 'NULL', 0, 0),
-('MG01', 'ejemplo@server.com', 'Maria', 'Apel1', 'Apel2', '123456', '0000-00-00', 'Calle1', 'p1', 'Ourense', 32005, 1),
-('Tatiux', 'tatiux.santana@gmail.com', 'Marco', 'Santana', 'Gonzalez', '12345', '0000-00-00', '', '', '', 0, 1);
+VALUES ("MS01","example@server.com","Marco","Santana","Gonzalez",'e10adc3949ba59abbe56e057f20f883e',1991-15-04,"Calle1","p1","Ourense",32005,1),
+('admin', 'admin@example.com', 'admin', 'adminapel', 'adminapel2','21232f297a57a5a743894a0e4a801fc3', '0000-00-00', 'NULL', 'NULL', 'NULL', 0, 0),
+('MG01', 'ejemplo@server.com', 'Maria', 'Apel1', 'Apel2','e10adc3949ba59abbe56e057f20f883e', '0000-00-00', 'Calle1', 'p1', 'Ourense', 32005, 1),
+('Tatiux', 'tatiux.santana@gmail.com', 'Marco', 'Santana', 'Gonzalez','e10adc3949ba59abbe56e057f20f883e', '0000-00-00', '', '', '', 0, 1),
+('user1', 'user@server.com', 'Maria', 'Apel1', 'Apel2','e10adc3949ba59abbe56e057f20f883e', '0000-00-00', 'Calle1', 'p1', 'Ourense', 32005, 1);
 
 
 
