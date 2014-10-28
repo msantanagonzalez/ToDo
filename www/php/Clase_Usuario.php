@@ -235,7 +235,13 @@ function Modificar_Usuario($ID_Usuario)
     ConectarDB();
 		
 		if(isset($_POST['accion'])){
-	
+
+		    $s = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
+			$r = mysql_query($s) or die(mysql_error());
+			$tupla = mysql_fetch_array($r) or die(mysql_error());
+
+			if($tupla['Password_Usuario'] == $_POST['Password_Usuario']){
+		
 					$sql = "UPDATE Usuario SET Nombre_Usuario='".$_POST['Nombre_Usuario']."',
 					Apellido1_Usuario='".$_POST['Apellido1_Usuario']."',
 					Apellido2_Usuario='".$_POST['Apellido2_Usuario']."',
@@ -247,7 +253,13 @@ function Modificar_Usuario($ID_Usuario)
 					WHERE ID_Usuario = '".$ID_Usuario."'" ;
 				$resultado = mysql_query($sql) or die(mysql_error());
 				header('location: /Perfil.php');
-				}
+			}else{
+			?>
+				<script language="javascript"> alert("PASSWORD INCORRECTO."); </script>
+			<?php
+				//echo "<h1> password incorrecto </h1>";
+			}
+		}
 			
 	
     $sql = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";

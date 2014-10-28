@@ -50,7 +50,7 @@ function Validar_CodigoPostal()
 			if(codigoPostal.length == 0 | codigoPostal.length == 5)
 			{
 				if(confirm("¿Modificar datos?")) {
-				alert("Informacion modificada correctamente");
+				//alert("Informacion modificada correctamente");
 					return true;
 				}		
 				else
