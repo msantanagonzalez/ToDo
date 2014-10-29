@@ -21,9 +21,9 @@ USE `ToDo_DB`;
 GRANT USAGE ON *.* TO 'Admin_ToDo'@'localhost';
    DROP USER 'Admin_ToDo'@'localhost';
 
-CREATE USER 'Admin_ToDo'@'localhost' IDENTIFIED BY  'Admin_ToDo';
+CREATE USER 'Admin_ToDo'@'localhost' IDENTIFIED BY  'Pass_ToDo';
 
-GRANT USAGE ON * . * TO  'Admin_ToDo'@'localhost' IDENTIFIED BY  'Admin_ToDo' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+GRANT USAGE ON * . * TO  'Admin_ToDo'@'localhost' IDENTIFIED BY  'Pass_ToDo' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
 
 GRANT ALL PRIVILEGES ON  `ToDo_DB` . * TO  'Admin_ToDo'@'localhost' WITH GRANT OPTION ;
 
@@ -101,7 +101,10 @@ VALUES ("MS01","example@server.com","Marco","Santana","Gonzalez",'e10adc3949ba59
 ('Tatiux', 'tatiux.santana@gmail.com', 'Marco', 'Santana', 'Gonzalez','e10adc3949ba59abbe56e057f20f883e', '0000-00-00', '', '', '', 0, 1),
 ('user1', 'user@server.com', 'Maria', 'Apel1', 'Apel2','e10adc3949ba59abbe56e057f20f883e', '0000-00-00', 'Calle1', 'p1', 'Ourense', 32005, 1);
 
-
+/*
+CONTRASEÑA DE USARIO admin:admin
+CONTRASEÑA DE USUARIOS EJEMPLO: 123456
+*/
 
 /* 3.1- Tabla proyecto     */
 INSERT INTO Proyecto (Nombre_Proyecto,ID_Usuario,Prioridad_Proyecto)
