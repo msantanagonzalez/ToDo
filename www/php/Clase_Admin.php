@@ -11,7 +11,7 @@ class Admin{
 				echo "<td width='25%'>" . "<a href='AdminPerfil.php?usuario=$row[0]'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='25%'>" . $row['Provincia_Usuario'] . "</td>";
 				echo "<td width='25%'>" . $row['Email_Usuario'] . "</td>";
-				echo "<td width='22%'>" . "<form action='../AdminEditarPerfil.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
+				echo "<td width='22%'>" . "<form action='../AdminEditarPerfil.php?usuario=$row[0]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
 	}
@@ -253,8 +253,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 			$proyecto = $_POST['proyecto'];
 			$usuario = $_POST['usuario'];
 			$tarea = $_POST['tarea'];
-			mysql_query("UPDATE Tarea SET Descripcion_Tarea='".$_POST['descripcion']."', Etiqueta_Tarea='".$_POST['etiqueta']."', Prioridad_Tarea='".$_POST['prioridad']."', Fecha_Inicio_Real='".$_POST['rFechaInicio']."', Fecha_Fin_Real='".$_POST['rFechaFin']."' WHERE ID_Usuario = '$usuario' AND Nombre_Tarea = '$tarea'
-			AND Nombre_Proyecto = '$proyecto'");		
+			mysql_query("UPDATE Tarea SET Descripcion_Tarea='".$_POST['descripcion']."', Etiqueta_Tarea='".$_POST['etiqueta']."', Prioridad_Tarea='".$_POST['prioridad']."', Fecha_Inicio_Real='".$_POST['rFechaInicio']."', Fecha_Fin_Real='".$_POST['rFechaFin']."' WHERE ID_Usuario = '$usuario' AND Nombre_Tarea = '$tarea'");		
 		}else{
 			$tarea = $_GET['tarea'];
 			$usuario = $_GET['usuario'];

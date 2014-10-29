@@ -5,7 +5,8 @@
 	Validar_Sesion();
 	$admin = new Admin;
 	$nav = new Nav;
-	$usuario = $_GET['usuario'];
+	if (isset($_GET['usuario'])) $usuario = $_GET['usuario'];
+	else $usuario = $_POST['usuario'];
 ?>
 
 <!DOCTYPE HTML>
@@ -20,6 +21,7 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
+        <script src="js/Validaciones.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
