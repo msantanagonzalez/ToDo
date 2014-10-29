@@ -262,8 +262,8 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 		}
 		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
-		echo "<form method='post' action='AdminEditarTarea.php?tarea=$tarea&usuario=$usuario&proyecto=$proyecto'>			
-				<div style='height:375px;width:auto;overflow-y: scroll;'>
+		echo "<form method='post' action='AdminEditarTarea.php?tarea=$tarea&usuario=$usuario'>			
+				<div style='height:385px;width:auto;overflow-y: scroll;'>
 				<table class='default'>
 				
                    <tr>
@@ -321,7 +321,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							
                 		</table>
                  	</div>
-                      	<div align='center'><input type='submit' name='DetallesTarea' value='MODIFICAR' onclick='return Validar_EstadoTarea()'></div>
+                      	<div align='center'><br><input type='submit' name='DetallesTarea' value='MODIFICAR' onclick='return Validar_EstadoTarea()'></div>
 						</form>	";
 	}
 	
@@ -337,7 +337,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 				<input type='hidden' name='tarea' value='$tarea'>
 				<input type='hidden' name='usuario' value='$usuario'>
 				<input type='hidden' name='proyecto' value='$proyecto'>		
-				<div style='height:375px;width:auto;overflow-y: scroll;'>
+				<div style='height:385px;width:auto;overflow-y: scroll;'>
 				<table class='default'>
 				
                    <tr>
@@ -395,7 +395,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							
                 		</table>
                  	</div>
-                   	<div align='center'><input type='submit' name='EditarTarea' value='GUARDAR' onclick='return Validar_EstadoTarea()'></div>
+                   	<div align='center'><br><input type='submit' name='EditarTarea' value='GUARDAR' onclick='return Validar_EstadoTarea()'></div>
 				</form>	";
 	}
 	
