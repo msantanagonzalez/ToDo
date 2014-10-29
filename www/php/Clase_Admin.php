@@ -308,12 +308,8 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							<tr>
 								<td></td>
                            		<td>Proyecto:</td>
-<<<<<<< HEAD
-                              	<td colspan='3'><input type='text' disabled value=' ";
-=======
                               	<td colspan='3'>
 								<select disabled>";
->>>>>>> origin/master
 									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
 									echo "<option value='NULL' name='proyecto'>-</option>";
 									while($row = mysql_fetch_array($result))
@@ -390,12 +386,8 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							
 							<tr>
                            		<td>Proyecto:</td>
-<<<<<<< HEAD
-                              	<td colspan='3'><input type='text' value=' ";
-=======
                               	<td colspan='3'>
 								<select disabled>";
->>>>>>> origin/master
 									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
 									echo "<option value='NULL' name='proyecto'>-</option>";
 									while($row = mysql_fetch_array($result))
