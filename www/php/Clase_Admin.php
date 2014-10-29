@@ -310,11 +310,11 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 								<td></td>
                            		<td>Proyecto:</td>
                               	<td colspan='3'>
-								<select name='proyecto' disabled>";
+								<select name='proyecto'>";
 									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
-									echo "<option selected value='$proyecto'> $proyecto </option>";
+									echo "<option hidden selected value='$proyecto'> $proyecto </option>";
 									while($row = mysql_fetch_array($result))
-										echo "<option value='".$row['Nombre_Proyecto']."'> '".$row['Nombre_Proyecto']."' </option>";
+										echo "<option value='".$row['Nombre_Proyecto']."'> $row[0] </option>";
 								echo "</select>
 										
                           		</td>
@@ -390,9 +390,9 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
                               	<td colspan='3'>
 								<select name='proyecto'>";
 									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
-									echo "<option selected value='$proyecto'> $proyecto </option>";
+									echo "<option hidden selected value='$proyecto'> $proyecto </option>";
 									while($row = mysql_fetch_array($result))
-										echo "<option value='".$row['Nombre_Proyecto']."'> '".$row['Nombre_Proyecto']."' </option>";
+										echo "<option value='".$row['Nombre_Proyecto']."'> $row[0] </option>";
 								echo "</select>
 										
                           		</td>
@@ -453,12 +453,6 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
                                	<td><input type='date' name='rFechaInicio' value=''></td>
                                	<td>Fecha Fin Real:</td>
                                	<td><input type='date' name='rFechaFin' value=''></td>
-                          	</tr>
-							
-							<tr>
-								<td></td>
-                           		<td>Proyecto:</td>
-                              	<td><input type='text' value='$proyecto'/></td>
                           	</tr>
 							
                 		</table>
