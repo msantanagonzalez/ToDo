@@ -46,7 +46,7 @@
                                                 <th width='20%'>Editar</th>
                                             </tr>
                                             </table>
-                                            <div style="height:107px;width:auto;overflow-y: scroll;">
+                                            <div style="height:350px;width:auto;overflow-y: scroll;">
                                             <table class="default">
                                             	<?php
 													$admin->Listar_Tareas();

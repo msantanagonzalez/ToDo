@@ -42,7 +42,7 @@ $nav = new Nav;
 		<div id="wrapper"><!--WRAPPER-->
 			<div id="content"><!--CONTENIDO-->
 				<?php
-				Detalle_Tarea($_SESSION["ID_Usuario"],$Nombre_Tarea,$Estado_Tarea)
+					Detalle_Tarea($_SESSION["ID_Usuario"],$Nombre_Tarea,$Estado_Tarea);
 				?>
 			</div>
 		</div>

@@ -5,6 +5,7 @@
 	Validar_Sesion();
 	$admin = new Admin;
 	$nav = new Nav;
+	$usuario = $_GET['usuario'];
 ?>
 
 <!DOCTYPE HTML>
@@ -35,11 +36,11 @@
 					<div id="content">
 						<div class="inner">
 							<!--INICIO SECCIÓN-->
-									<header> <p> <div> <h1 id="logo"><a>- EDITAR PERFIL -</a></h1> </div></p></header>
+									<header> <p> <div> <h1 id="logo"><a>- PERFIL DE: <?php echo $usuario; ?> -</a></h1> </div></p></header>
 										<!--INICIO TABLA-->
                                         	<br>
                                             <?php
-												$admin->Editar_Perfil();
+												$admin->Ver_Perfil();
 											?>
                                       	<!-- FIN TABLA -->
 									</p>	

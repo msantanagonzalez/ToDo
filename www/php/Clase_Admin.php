@@ -22,12 +22,12 @@ class Admin{
 		$result = mysql_query("SELECT * FROM Tarea ORDER BY Prioridad_Tarea");
 		while($row = mysql_fetch_array($result)){
 			echo "<tr>";
-				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php'>" . $row[0] . "</td>";
+				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]'>" . $row[0] . "</td>";
 				echo "<td width='20%'>" . $row['ID_Usuario'] . "</td>";
 				echo "<td width='20%'>" . $row['Nombre_Proyecto'] . "</td>";
 				echo "<td width='20%'>"; switch ($row['Prioridad_Tarea']){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
 case 4:echo "-";break;default:echo "-";} echo "</td>";
-				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
+				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
 	}
@@ -57,34 +57,48 @@ case 4:echo "-";break;default:echo "-";}  echo "</td>";
 		}
 	}
 	
-	//--------------------------------------------------DETALLES PROYECTO------------------------------------------------
+	//------------------------------------------------------------DETALLES PROYECTO------------------------------------------------
 	public function Listar_Tareas_Proyecto(){
 		ConectarDB();
-		if(isset($_POST['accion'])){			
+		if(isset($_POST['AgregarTarea'])){
 			$proyecto = $_POST['proyecto'];
+			$usuario = $_POST['usuario'];
+			mysql_query("INSERT INTO Tarea(Nombre_Tarea, ID_Usuario, Nombre_Proyecto, Descripcion_Tarea, Etiqueta_Tarea, Estado_Tarea, Prioridad_Tarea 
+			, Fecha_Inicio, Fecha_Fin_Estimada, Fecha_Inicio_Real, Fecha_Fin_Real) VALUES('".$_POST['titulo']."', '$usuario', '$proyecto'
+			, '".$_POST['descripcion']."', '".$_POST['etiqueta']."', '".$_POST['estado']."', '".$_POST['prioridad']."', '".$_POST['eFechaInicio']."'
+			, '".$_POST['eFechaFin']."', '".$_POST['rFechaInicio']."', '".$_POST['rFechaFin']."')");
+		}
+		if(isset($_POST['EditarProyecto'])){			
+			$proyecto = $_GET['proyecto'];
 			$usuario = $_GET['usuario'];
 			$nuevaPrioridad = $_POST['prioridad'];
 			mysql_query("UPDATE Proyecto SET Prioridad_Proyecto = '$nuevaPrioridad' WHERE Nombre_Proyecto LIKE '$proyecto' AND ID_Usuario LIKE '$usuario'");		
+		}else{
+			$proyecto = $_GET['proyecto'];
+			$usuario = $_GET['usuario'];
 		}
-		
-		$proyecto = $_GET['proyecto'];
-		$usuario = $_GET['usuario'];
 		$result = mysql_query("SELECT t.Nombre_Tarea, t.ID_Usuario, t.Nombre_Proyecto, t.Prioridad_Tarea FROM Proyecto p, Tarea t WHERE p.Nombre_Proyecto= '$proyecto' AND p.Nombre_Proyecto = t.Nombre_Proyecto AND p.ID_Usuario = '$usuario' AND t.ID_Usuario = p.ID_Usuario ORDER BY t.Prioridad_Tarea");
 		while($row = mysql_fetch_array($result)){
 			echo "<tr>";
-				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php'>" . $row[0] . "</td>";
+				echo "<td width='20%'>" . "<a href='AdminDetallesTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]'>" . $row[0] . "</td>";
 				echo "<td width='20%'>" . $row[1] . "</td>";
 				echo "<td width='20%'>" . $row[2] . "</td>";
 				echo "<td width='20%'>"; switch ($row[3]){case 1:echo "Alta";break;case 2:echo "Media";break;case 3:echo "Baja";break;
 case 4:echo "-";break;default:echo "-";} echo "</td>";
-				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
+				echo "<td width='17%'>" . "<form action='../AdminEditarTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]' method='post'>" . "<button type='submit' name='Editar'>" . "Editar" . "</button>" . "</form>" . "</td>";
 			echo "</tr>";
 		}
+		echo "<tr>
+					<td colspan='5'>
+						<form action='AdminAgregarTarea.php?usuario=$usuario&proyecto=$proyecto' method='post'>
+							<input type='submit' name='AgregarTarea' value='AGREGAR TAREA'/>
+						</form>
+					</td>
+				</tr>";
 	}
 	
 	//--------------------------------------------------EDITAR PROYECTO----------------------------------
 	public function Editar_Proyecto(){
-		
 		ConectarDB();
 		$proyecto = $_GET['editarP'];
 		$usuario = $_GET['usuario'];
@@ -92,9 +106,8 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 		$row = mysql_fetch_array($result);
 	
 		echo
-		"<form method='POST' action='AdminDetallesProyecto.php?proyecto=$proyecto&usuario=$usuario'> 
-			<input type='hidden' name='proyecto' value='$proyecto' />
-			<input type='hidden' name='usuario' value='$usuario' />
+		"<form method='POST' action='AdminDetallesProyecto.php?usuario=$usuario&proyecto=$proyecto'> 
+		
 			<table class='default'>
 				<tr> 
 					<td> T&Iacute;TULO: </td> 
@@ -112,11 +125,37 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 				</tr> 
 				<tr>
 					<td colspan='4'>
-						<input type='submit' name='accion'/>
+						<input type='submit' name='EditarProyecto'/>
 					</td>
 				</tr> 
 			 </table>
 		</form>";
+	}
+	
+	// ------------------------------------------------------ AGREGAR PROYECTO --------------------------------------------------------------
+	public function Agregar_proyecto(){
+		ConectarDB();
+		if(isset($_POST['user'])){
+			$usuario = $_POST['usuario'];
+		}
+		echo "<form method='POST' action='AdminGestorProyectos.php?usuario=$usuario'>
+		<table class='default'>
+        	<tr>
+               	<td>T&Iacute;TULO:</td>
+				<td><input type='text' autofocus placeholder='$T&iacute;tulo deseado...' name='proyecto' value=''/></td>
+				<td>PRIORIDAD:</td>
+				<td>
+					<select name='prioridad'>
+						<option value='1'>Alta</option>
+						<option value='2'>Media</option>
+						<option value='3'>Baja</option>
+						<option value='4' selected>-</option>
+					</select>
+				</td>
+			</tr>           
+	   <table>
+			<tr> <th colspan='4'><input type='submit' value='MODIFICAR' name='agregar'></a></th> </tr>
+		</table></form>";
 	}
 	
 	// ------------------------------------------------------ BUSCAR --------------------------------------------------------------
@@ -207,29 +246,340 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 	
 	}
 	
-	// ------------------------------------------------------ AGREGAR PROYECTO --------------------------------------------------------------
-	public function Agregar_proyecto(){
-		if(isset($_POST['user'])){
+	//--------------------------------------------------------DETALLES TAREA-----------------------------------------------------------
+	public function Detalles_Tarea(){
+		ConectarDB();
+		if(isset($_POST['EditarTarea'])){			
+			$proyecto = $_POST['proyecto'];
 			$usuario = $_POST['usuario'];
+			$tarea = $_POST['tarea'];
+			mysql_query("UPDATE Tarea SET Descripcion_Tarea='".$_POST['descripcion']."', Etiqueta_Tarea='".$_POST['etiqueta']."', Prioridad_Tarea='".$_POST['prioridad']."', Fecha_Inicio_Real='".$_POST['rFechaInicio']."', Fecha_Fin_Real='".$_POST['rFechaFin']."' WHERE ID_Usuario = '$usuario' AND Nombre_Tarea = '$tarea'
+			AND Nombre_Proyecto = '$proyecto'");		
+		}else{
+			$tarea = $_GET['tarea'];
+			$usuario = $_GET['usuario'];
+			$proyecto = $_GET['proyecto'];
 		}
-		echo "<form method='POST' action='AdminGestorProyectos.php?usuario=$usuario'>
-		<table class='default'>
-        	<tr>
-               	<td>T&Iacute;TULO:</td>
-				<td><input type='text' autofocus placeholder='$T&iacute;tulo deseado...' name='proyecto' value=''/></td>
-				<td>PRIORIDAD:</td>
-				<td>
-					<select name='prioridad'>
-						<option value='1'>Alta</option>
-						<option value='2'>Media</option>
-						<option value='3'>Baja</option>
-						<option value='4' selected>-</option>
-					</select>
-				</td>
-			</tr>           
-	   <table>
-			<tr> <th colspan='4'><input type='submit' value='MODIFICAR' name='agregar'></a></th> </tr>
-		</table></form>";
+		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario' AND Nombre_Proyecto = '$proyecto'");
+		$row = mysql_fetch_array($result);
+		echo "<form method='post' action='AdminEditarTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]'>			
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
+				<table class='default'>
+				
+                   <tr>
+					<td>Titulo:</td>
+					<td><input type='text' disabled value='$row[0]''></td>
+					<td>Prioridad:</td>
+					<td>
+					<select disabled name='prioridad'> 
+							<option hidden value='$row[6]' selected>";
+							switch($row[6]){case 1:echo 'Alta';break;case 2:echo'Media';break;case 3:echo 'Baja';
+							break;case 4:echo '-';break;default:echo '-';} echo "</option>
+							<option value='1'>Alta</option> 
+							<option value='2'>Media</option> 
+							<option value='3'>Baja</option> 
+							<option value='4'>-</option> 
+						</select> </td>
+					 </tr>
+					
+					<tr>
+					 <td>Estado:</td>
+					<td><input type='text' disabled  value='$row[5]' name='estado' id='Estado_Tarea'></td>
+					<td>Etiqueta:</td>
+					<td><input type='text' disabled value='$row[4]' name='etiqueta'></td>	
+					</tr>
+					</tr>
+							<td>Descripcion:</td>
+                           	<td colspan='3'><input type='text' disabled value='$row[3]' name='descripcion'></td>
+                    </tr>
+							
+							<tr>
+                               	<td>Fecha Inicio Estimada:</td>
+                               	<td><input type='date' disabled name='eFechaInicio' value='$row[7]'></td>
+                               	<td>Fecha Fin Estimada:</td>
+                               	<td><input type='date' disabled name='eFechaFin' value='$row[8]'></td>
+                          	</tr>
+							<tr>
+                           		<td>Fecha Inicio Real:</td>
+                               	<td><input type='date' disabled name='rFechaInicio' value='$row[9]'></td>
+                               	<td>Fecha Fin Real:</td>
+                               	<td><input type='date' disabled name='rFechaFin' value='$row[10]'></td>
+                          	</tr>
+							
+							<tr>
+								<td></td>
+                           		<td>Proyecto:</td>
+                              	<td><input type='text' disabled value=' ";
+								if ( $row['Nombre_Proyecto'] == "" ){
+									echo "SIN PROYECTO";
+								}
+								else{
+									echo $row['Nombre_Proyecto'] ;
+								}
+								echo "'/></td>
+                          	</tr>
+							
+                		</table>
+                 	</div>
+                      	<table>
+							<tr> 
+								<input type='submit' name='DetallesTarea' value='MODIFICAR' onclick='return Validar_EstadoTarea()'>
+							</tr>
+                    	</table>
+						</form>	";
+	}
+	
+	// ---------------------------------------------------------------EDITAR TAREA---------------------------------------------------------------
+	public function Editar_Tarea(){
+		ConectarDB();
+		$tarea = $_GET['tarea'];
+		$usuario = $_GET['usuario'];
+		$proyecto = $_GET['proyecto'];
+		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario' AND Nombre_Proyecto = '$proyecto'");
+		$row = mysql_fetch_array($result);
+		echo "<form method='post' action='AdminDetallesTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]'>
+				<input type='hidden' name='tarea' value='$tarea'>
+				<input type='hidden' name='usuario' value='$usuario'>
+				<input type='hidden' name='proyecto' value='$proyecto'>		
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
+				<table class='default'>
+				
+                   <tr>
+					<td>Titulo:</td>
+					<td><input type='text' disabled value='$row[0]''></td>
+					<td>Prioridad:</td>
+					<td>
+					<select name='prioridad'> 
+							<option hidden value='$row[6]' selected>";
+							switch($row[6]){case 1:echo 'Alta';break;case 2:echo'Media';break;case 3:echo 'Baja';
+							break;case 4:echo '-';break;default:echo '-';} echo "</option>
+							<option value='1'>Alta</option> 
+							<option value='2'>Media</option> 
+							<option value='3'>Baja</option> 
+							<option value='4'>-</option> 
+						</select> </td>
+					 </tr>
+					
+					<tr>
+					 <td>Estado:</td>
+					<td><input type='text' value='$row[5]' name='estado'></td>
+					<td>Etiqueta:</td>
+					<td><input type='text' value='$row[4]' name='etiqueta'></td>	
+					</tr>
+					</tr>
+							<td>Descripcion:</td>
+                           	<td colspan='3'><input type='text' value='$row[3]' name='descripcion'></td>
+                    </tr>
+							
+							<tr>
+                               	<td>Fecha Inicio Estimada:</td>
+                               	<td><input type='date' disabled name='eFechaInicio' value='$row[7]'></td>
+                               	<td>Fecha Fin Estimada:</td>
+                               	<td><input type='date' disabled name='eFechaFin' value='$row[8]'></td>
+                          	</tr>
+							<tr>
+                           		<td>Fecha Inicio Real:</td>
+                               	<td><input type='date' name='rFechaInicio' value='$row[9]'></td>
+                               	<td>Fecha Fin Real:</td>
+                               	<td><input type='date' name='rFechaFin' value='$row[10]'></td>
+                          	</tr>
+							
+							<tr>
+								<td></td>
+                           		<td>Proyecto:</td>
+                              	<td><input type='text' disabled value=' ";
+								if ( $row['Nombre_Proyecto'] == "" ){
+									echo "SIN PROYECTO";
+								}
+								else{
+									echo $row['Nombre_Proyecto'] ;
+								}
+								echo "'/></td>
+                          	</tr>
+							
+                		</table>
+                 	</div>
+                      	<table>
+							<tr> 
+								<input type='submit' name='EditarTarea' value='GUARDAR' onclick='return Validar_EstadoTarea()'>
+							</tr>
+                    	</table>
+						</form>	";
+	}
+	
+	//------------------------------------------------------AGREGAR TAREA-----------------------------------------------------------
+	public function Agregar_Tarea(){
+		ConectarDB();
+		$usuario = $_GET['usuario'];
+		$proyecto = $_GET['proyecto'];
+		echo "<form method='post' action='AdminDetallesProyecto.php?usuario=$usuario&proyecto=$proyecto'>
+				<input type='hidden' name='usuario' value='$usuario'>	
+				<input type='hidden' name='proyecto' value='$proyecto'>
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
+				<table class='default'>
+                   <tr>
+					<td>Titulo:</td>
+					<td><input type='text' name='titulo' value=''></td>
+					<td>Prioridad:</td>
+					<td>
+					<select name='prioridad'> 
+								<option value='1'>Alta</option>
+								<option value='2'>Media</option>
+								<option value='3'>Baja</option>
+								<option value='4' selected>-</option>
+						</select> </td>
+					 </tr>
+					
+					<tr>
+					 <td>Estado:</td>
+					<td><input type='text' value='' name='estado'></td>
+					<td>Etiqueta:</td>
+					<td><input type='text' value='' name='etiqueta'></td>	
+					</tr>
+					</tr>
+							<td>Descripcion:</td>
+                           	<td colspan='3'><input type='text' value='' name='descripcion'></td>
+                    </tr>
+							
+							<tr>
+                               	<td>Fecha Inicio Estimada:</td>
+                               	<td><input type='date' name='eFechaInicio' value=''></td>
+                               	<td>Fecha Fin Estimada:</td>
+                               	<td><input type='date' name='eFechaFin' value=''></td>
+                          	</tr>
+							<tr>
+                           		<td>Fecha Inicio Real:</td>
+                               	<td><input type='date' name='rFechaInicio' value=''></td>
+                               	<td>Fecha Fin Real:</td>
+                               	<td><input type='date' name='rFechaFin' value=''></td>
+                          	</tr>
+							
+							<tr>
+								<td></td>
+                           		<td>Proyecto:</td>
+                              	<td><input type='text' value='$proyecto'/></td>
+                          	</tr>
+							
+                		</table>
+                 	</div>
+                      	<table>
+							<tr> 
+								<input type='submit' name='AgregarTarea' value='GUARDAR' onclick='return Validar_EstadoTarea()'>
+							</tr>
+                    	</table>
+						</form>	";
+	}
+	
+	//---------------------------------------------------------EDITAR PERFIL-------------------------------------------------------------
+	public function Editar_Perfil(){
+		ConectarDB();
+		$usuario = $_GET['usuario'];
+		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario = '$usuario'");
+		$row = mysql_fetch_array($result);
+		
+		echo "<form method='post' action='AdminPerfil.php?usuario='$usuario' onsubmit='return Validar_CodigoPostal();'>
+				<input type='hidden' name='usuario' value='$usuario'>
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
+					<table class='default'>
+						<tr> 
+						<td>USUARIO:</td> 
+                         <td><input type='text' disabled class='text' value='".$row['Nombre_Usuario']."' name='nombre'></td>
+                               	<td>CORREO:</td>
+                              	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' name='email'></td>
+                          	</tr>
+                           	<tr>
+                             	<td>APELLIDO1:</td>
+                               	<td><input type='text' class='text' value='".$row['Apellido1_Usuario']."' name='apel1'></td>
+                               	<td>APELLIDO2:</td>
+                              	<td><input type='text' class='text' value='".$row['Apellido2_Usuario']."' name='apel2'></td>
+                         	</tr>
+                          	<tr>
+                               	<td>CALLE:</td>
+                              	<td><input type='text' class='text' value='".$row['Calle_Usuario']."' name='calle'></td>
+								<td>PORTAL:</td>
+                               	<td><input type='text' class='text' value='".$row['N_Portal_Usuario']."' name='portal'></td>
+                               	
+                       		</tr>
+							<tr>
+                          		<td>PROVINCIA:</td>
+                              	<td><input type='text' class='text' value='".$row['Provincia_Usuario']."' name='provincia'></td>
+								<td>CODIGO POSTAL:</td>
+                              	<td><input type='text' class='text' value='".$row['CP_Usuario']."' name='cp' id='Campo_CodigoPostal'></td>
+                       		</tr>
+							<tr>
+								<td>FECHA DE NACIMIENTO:</td>
+                               	<td colspan='3'><input type='text' class='text' value='".$row['Fecha_Nacimiento']."' name='fechaNac'></td>
+											
+							</tr>
+                     	</table>
+                    </div>
+                      	<table class='alternative'>
+                          	<tr>
+							<td width='30%'></td>
+                              	<td width='10%' colspan='4'><input type='submit' name='EditarPerfil' value='GUARDAR'></a></td>
+								<td width='25%'></td>
+                          	</tr>
+                      	</table>
+					</form> ";	
+	}
+	
+	//---------------------------------------------------------VER PERFIL------------------------------------------------------------
+	public function Ver_Perfil(){
+		ConectarDB();
+		if(isset($_POST['EditarPerfil'])){
+			$usuario = $_POST['usuario'];
+			mysql_query("UPDATE Usuario SET Nombre_Usuario = '".$_POST['nombre']."', Apellido1_Usuario = '".$_POST['apel1']."'
+			, Apellido2_Usuario = '".$_POST['apel2']."', Fecha_Nacimiento = '".$_POST['fechaNac']."'
+			, Calle_Usuario = '".$_POST['calle']."', N_Portal_Usuario = '".$_POST['portal']."', Provincia_Usuario = '".$_POST['provincia']."'
+			, CP_Usuario = '".$_POST['cp']."'");
+		}
+		$usuario = $_GET['usuario'];
+		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario = '$usuario'");
+		$row = mysql_fetch_array($result);
+		
+		echo "<form method='post' action='AdminEditarPerfil.php?usuario=$usuario' onsubmit='return Validar_CodigoPostal();'>
+				<div style='height:350px;width:auto;overflow-y: scroll;'>
+					<table class='default'>
+						<tr> 
+						<td>USUARIO:</td> 
+                         <td><input type='text' disabled class='text' value='".$row['Nombre_Usuario']."' name='nombre'></td>
+                               	<td>CORREO:</td>
+                              	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' name='email'></td>
+                          	</tr>
+                           	<tr>
+                             	<td>APELLIDO1:</td>
+                               	<td><input type='text' disabled class='text' value='".$row['Apellido1_Usuario']."' name='apel1'></td>
+                               	<td>APELLIDO2:</td>
+                              	<td><input type='text' disabled class='text' value='".$row['Apellido2_Usuario']."' name='apel2'></td>
+                         	</tr>
+                          	<tr>
+                               	<td>CALLE:</td>
+                              	<td><input type='text' disabled class='text' value='".$row['Calle_Usuario']."' name='calle'></td>
+								<td>PORTAL:</td>
+                               	<td><input type='text' disabled class='text' value='".$row['N_Portal_Usuario']."' name='portal'></td>
+                               	
+                       		</tr>
+							<tr>
+                          		<td>PROVINCIA:</td>
+                              	<td><input type='text' disabled class='text' value='".$row['Provincia_Usuario']."' name='provincia'></td>
+								<td>CODIGO POSTAL:</td>
+                              	<td><input type='text' disabled class='text' value='".$row['CP_Usuario']."' name='cp' id='Campo_CodigoPostal'></td>
+                       		</tr>
+							<tr>
+								<td>FECHA DE NACIMIENTO:</td>
+                               	<td colspan='3'><input type='text' disabled class='text' value='".$row['Fecha_Nacimiento']."' name='fechaNac'></td>
+												
+							</tr>
+                     	</table>
+                    </div>
+                      	<table class='alternative'>
+                          	<tr>
+							<td width='30%'></td>
+                              	<td width='10%' colspan='4'><input type='submit' name='accion' value='MODIFICAR'></a></td>
+								<td width='25%'></td>
+                          	</tr>
+                      	</table>
+					</form> ";	
 	}
 }
 ?>
