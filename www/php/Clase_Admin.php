@@ -260,7 +260,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 			$usuario = $_GET['usuario'];
 			$proyecto = $_GET['proyecto'];
 		}
-		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario' AND Nombre_Proyecto = '$proyecto'");
+		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
 		echo "<form method='post' action='AdminEditarTarea.php?tarea=$tarea&usuario=$usuario&proyecto=$proyecto'>			
 				<div style='height:350px;width:auto;overflow-y: scroll;'>
@@ -483,7 +483,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 					<table class='default'>
 						<tr> 
 						<td>USUARIO:</td> 
-                         <td><input type='text' disabled class='text' value='".$row['Nombre_Usuario']."' name='nombre'></td>
+                         <td><input type='text' class='text' value='".$row['Nombre_Usuario']."' name='nombre'></td>
                                	<td>CORREO:</td>
                               	<td><input type='text' disabled class='text' value='".$row['Email_Usuario']."' name='email'></td>
                           	</tr>
@@ -538,7 +538,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
 		
-		echo "<form method='post' action='AdminEditarPerfil.php?usuario=$usuario' onsubmit='return Validar_CodigoPostal();'>
+		echo "<form method='POST' action='AdminEditarPerfil.php?usuario=$usuario' onsubmit='return Validar_CodigoPostal();'>
 				<div style='height:350px;width:auto;overflow-y: scroll;'>
 					<table class='default'>
 						<tr> 
