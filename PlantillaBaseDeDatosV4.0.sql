@@ -4,6 +4,30 @@
 /* Pass: Pass_ToDo       */
 /* ***********************  */
 
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+/* ************************* */
+/* Base de datos: `ToDo_DB`  */
+/* ************************* */
+
+DROP DATABASE IF EXISTS `ToDo_DB`;
+CREATE DATABASE `ToDo_DB` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci;
+USE `ToDo_DB`;
+
+/* **************** */
+/* USER Admin_ToDo  */
+/* **************** */
+
+GRANT USAGE ON *.* TO 'Admin_ToDo'@'localhost';
+   DROP USER 'Admin_ToDo'@'localhost';
+
+CREATE USER 'Admin_ToDo'@'localhost' IDENTIFIED BY  'Admin_ToDo';
+
+GRANT USAGE ON * . * TO  'Admin_ToDo'@'localhost' IDENTIFIED BY  'Admin_ToDo' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+
+GRANT ALL PRIVILEGES ON  `ToDo_DB` . * TO  'Admin_ToDo'@'localhost' WITH GRANT OPTION ;
+
+
 /* ********************************************** */
 /* 1.- Sentencias de borrado de todas las tablas  */
 /* ********************************************** */
