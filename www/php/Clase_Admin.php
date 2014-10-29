@@ -261,7 +261,6 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 	public function Detalles_Tarea(){
 		ConectarDB();
 		if(isset($_POST['EditarTarea'])){			
-			//$proyecto = $_POST['proyecto'];
 			$usuario = $_POST['usuario'];
 			$tarea = $_POST['tarea'];
 			$proyecto = $_POST['proyecto'];
@@ -320,7 +319,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							<tr>
                            		<td>Proyecto:</td>
                               	<td colspan='3'>
-								<select name='proyecto'>";
+								<select disabled name='proyecto'>";
 									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
 									echo "<option hidden selected value='$proyecto'> $proyecto </option>";
 									while($row = mysql_fetch_array($result))
