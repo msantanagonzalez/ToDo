@@ -250,10 +250,10 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 	public function Detalles_Tarea(){
 		ConectarDB();
 		if(isset($_POST['EditarTarea'])){			
-			$proyecto = $_POST['proyecto'];
+			//$proyecto = $_POST['proyecto'];
 			$usuario = $_POST['usuario'];
 			$tarea = $_POST['tarea'];
-			mysql_query("UPDATE Tarea SET Descripcion_Tarea='".$_POST['descripcion']."', Etiqueta_Tarea='".$_POST['etiqueta']."', Prioridad_Tarea='".$_POST['prioridad']."', Fecha_Inicio_Real='".$_POST['rFechaInicio']."', Fecha_Fin_Real='".$_POST['rFechaFin']."' WHERE ID_Usuario = '$usuario' AND Nombre_Tarea = '$tarea'");		
+			mysql_query("UPDATE Tarea SET Descripcion_Tarea='".$_POST['descripcion']."', Etiqueta_Tarea='".$_POST['etiqueta']."', Prioridad_Tarea='".$_POST['prioridad']."', Fecha_Inicio_Real='".$_POST['rFechaInicio']."', Fecha_Fin_Real='".$_POST['rFechaFin']."', Nombre_Proyecto ='".$_POST['proyecto']."' WHERE ID_Usuario = '$usuario' AND Nombre_Tarea = '$tarea'");		
 		}else{
 			$tarea = $_GET['tarea'];
 			$usuario = $_GET['usuario'];
@@ -308,14 +308,12 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							<tr>
 								<td></td>
                            		<td>Proyecto:</td>
-                              	<td><input type='text' disabled value=' ";
-								if ( $row['Nombre_Proyecto'] == "" ){
-									echo "SIN PROYECTO";
-								}
-								else{
-									echo $row['Nombre_Proyecto'] ;
-								}
-								echo "'/></td>
+                              	<td colspan='3'><input type='text' disabled value=' ";
+									$result = mysql_query("select Nombre_Proyecto from Proyecto where ID_Usuario = '$ID_Usuario'");
+									echo "<option value='NULL' name='proyecto'>-</option>";
+									while($row = mysql_fetch_array($result))
+										echo "<option value='".$row['Nombre_Proyecto']."' name='proyecto'> '".$row['Nombre_Proyecto']."' </option>";
+                          	echo "</td>
                           	</tr>
 							
                 		</table>
@@ -384,17 +382,14 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
                           	</tr>
 							
 							<tr>
-								<td></td>
                            		<td>Proyecto:</td>
-                              	<td><input type='text' disabled value=' ";
-								if ( $row['Nombre_Proyecto'] == "" ){
-									echo "SIN PROYECTO";
-								}
-								else{
-									echo $row['Nombre_Proyecto'] ;
-								}
-								echo "'/></td>
-                          	</tr>
+                              	<td colspan='3'><input type='text' value=' ";
+									$result = mysql_query("select Nombre_Proyecto from Proyecto where ID_Usuario = '$ID_Usuario'");
+									echo "<option value='NULL' name='proyecto'>-</option>";
+									while($row = mysql_fetch_array($result))
+										echo "<option value='".$row['Nombre_Proyecto']."' name='proyecto'> '".$row['Nombre_Proyecto']."' </option>";
+                          	echo "</td>
+							</tr>
 							
                 		</table>
                  	</div>
