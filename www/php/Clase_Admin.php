@@ -476,7 +476,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
 		
-		echo "<form method='post' action='AdminPerfil.php?usuario='$usuario' onsubmit='return Validar_CodigoPostal();'>
+		echo "<form method='post' action='AdminPerfil.php?usuario=$usuario' onsubmit='return Validar_CodigoPostal();'>
 				<input type='hidden' name='usuario' value='$usuario'>
 				<div style='height:350px;width:auto;overflow-y: scroll;'>
 					<table class='default'>
