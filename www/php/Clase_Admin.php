@@ -262,7 +262,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 		}
 		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario' AND Nombre_Proyecto = '$proyecto'");
 		$row = mysql_fetch_array($result);
-		echo "<form method='post' action='AdminEditarTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]'>			
+		echo "<form method='post' action='AdminEditarTarea.php?tarea=$tarea&usuario=$usuario&proyecto=$proyecto'>			
 				<div style='height:350px;width:auto;overflow-y: scroll;'>
 				<table class='default'>
 				
@@ -335,9 +335,9 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 		$tarea = $_GET['tarea'];
 		$usuario = $_GET['usuario'];
 		$proyecto = $_GET['proyecto'];
-		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario' AND Nombre_Proyecto = '$proyecto'");
+		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
-		echo "<form method='post' action='AdminDetallesTarea.php?tarea=$row[0]&usuario=$row[1]&proyecto=$row[2]'>
+		echo "<form method='post' action='AdminDetallesTarea.php?tarea=$tarea&usuario=$usuario&proyecto=$proyecto'>
 				<input type='hidden' name='tarea' value='$tarea'>
 				<input type='hidden' name='usuario' value='$usuario'>
 				<input type='hidden' name='proyecto' value='$proyecto'>		
@@ -531,9 +531,10 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 			mysql_query("UPDATE Usuario SET Nombre_Usuario = '".$_POST['nombre']."', Apellido1_Usuario = '".$_POST['apel1']."'
 			, Apellido2_Usuario = '".$_POST['apel2']."', Fecha_Nacimiento = '".$_POST['fechaNac']."'
 			, Calle_Usuario = '".$_POST['calle']."', N_Portal_Usuario = '".$_POST['portal']."', Provincia_Usuario = '".$_POST['provincia']."'
-			, CP_Usuario = '".$_POST['cp']."'");
-		}
-		$usuario = $_GET['usuario'];
+			, CP_Usuario = '".$_POST['cp']."' WHERE ID_Usuario = '$usuario'");
+			
+		} else $usuario = $_GET['usuario'];
+		
 		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
 		
@@ -575,7 +576,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
                       	<table class='alternative'>
                           	<tr>
 							<td width='30%'></td>
-                              	<td width='10%' colspan='4'><input type='submit' name='accion' value='MODIFICAR'></a></td>
+                              	<td width='10%' colspan='4'><input type='submit' name='DetallesTarea' value='MODIFICAR'></a></td>
 								<td width='25%'></td>
                           	</tr>
                       	</table>
