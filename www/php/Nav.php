@@ -10,6 +10,7 @@ class Nav{
 							<li class='current'><a href='AdminGestorUsuarios.php'>GESTIONAR USUARIOS</a></li>
                            	<li class='current'><a href='AdminGestorProyectos.php'>GESTIONAR PROYECTOS</a></li>
                            	<li class='current'><a href='AdminGestorTareas.php'>GESTIONAR TAREAS</a></li>
+							<li class='current'><a href='AdminEditarPass.php'>CAMBIAR PASS</a></li>
 							<li class='current'><a href='/php/Cerrar_Sesion.php' id='Logout_Usuario' onclick ='return Salir_Usuario()'>Log Out >]</a></li>
                             <form method='POST' action='AdminResultadosBusqueda.php' style='text-align:center'>
                         	<section class='box search'>

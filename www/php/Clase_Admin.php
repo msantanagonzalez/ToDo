@@ -60,6 +60,16 @@ case 4:echo "-";break;default:echo "-";}  echo "</td>";
 	//------------------------------------------------------------DETALLES PROYECTO------------------------------------------------
 	public function Listar_Tareas_Proyecto(){
 		ConectarDB();
+		if(isset($_POST['EliminarProyecto']))
+		{
+		$proyecto = $_GET['proyecto'];
+		$usuario = $_GET['usuario'];
+		$sql ="delete from Proyecto where ID_Usuario = '$usuario' and Nombre_Proyecto = '$proyecto'";
+		echo $sql;
+        mysql_query($sql) or die(mysql_error());
+		header('location: /AdminGestorProyectos.php');
+		}
+		
 		if(isset($_POST['AgregarTarea'])){
 			$proyecto = $_POST['proyecto'];
 			$usuario = $_POST['usuario'];
@@ -89,7 +99,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 			echo "</tr>";
 		}
 		echo "<tr>
-					<td colspan='5'>
+					<td colspan='6'>
 						<form action='AdminAgregarTarea.php?usuario=$usuario&proyecto=$proyecto' method='post'>
 							<input type='submit' name='AgregarTarea' value='AGREGAR TAREA'/>
 						</form>
@@ -124,9 +134,10 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 					</td> 
 				</tr> 
 				<tr>
-					<td colspan='4'>
-						<input type='submit' name='EditarProyecto'/>
-					</td>
+					<td width='30%'></td>
+                    <td width='20%' colspan='2'><input type='submit' name='EliminarProyecto' value='ELIMINAR'></a></td>
+					<td width='15%'><input type='submit' name='EditarProyecto'/></td>
+					<td width='30%'></td>
 				</tr> 
 			 </table>
 		</form>";
@@ -321,16 +332,33 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							
                 		</table>
                  	</div>
-                      	<div align='center' style='margin-top:1em'><input type='submit' name='DetallesTarea' value='MODIFICAR' onclick='return Validar_EstadoTarea()'></div>
+					<table class='alternative'>
+                          	<tr>
+								<td width='30%'></td>
+                              	<td width='20%' colspan='2'><input type='submit' name='EliminarTarea' value='ELIMINAR'></a></td>
+								<td width='15%'><input type='submit' name='DetallesTarea' value='MODIFICAR' onclick='return Validar_EstadoTarea()'></td>
+								<td width='30%'></td>
+                          	</tr>
+                      	</table>
 						</form>	";
 	}
 	
 	// ---------------------------------------------------------------EDITAR TAREA---------------------------------------------------------------
 	public function Editar_Tarea(){
+	
 		ConectarDB();
+
 		$tarea = $_GET['tarea'];
 		$usuario = $_GET['usuario'];
 		$proyecto = $_GET['proyecto'];
+		
+		if(isset($_POST['EliminarTarea']))
+		{
+		$sql ="delete from Tarea where ID_Usuario = '$usuario' and Nombre_Tarea = '$tarea'";
+        mysql_query($sql) or die(mysql_error());
+		header('location: /AdminGestorTareas.php');
+		}
+		
 		$result = mysql_query("SELECT * FROM Tarea WHERE Nombre_Tarea = '$tarea' AND ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
 		echo "<form method='post' action='AdminDetallesTarea.php?tarea=$tarea&usuario=$usuario&proyecto=$proyecto'>
@@ -459,6 +487,16 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 	//---------------------------------------------------------EDITAR PERFIL-------------------------------------------------------------
 	public function Editar_Perfil(){
 		ConectarDB();
+		
+		if (isset($_POST['EliminarUsuario'])) {
+		if (isset($_GET['usuario'])) {
+		$ID_Usuario = $_GET['usuario'];
+		} else {
+		$ID_Usuario = "NULL";
+		}
+			Baja_Usuario($ID_Usuario);
+	}
+		
 		$usuario = $_GET['usuario'];
 		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
@@ -524,7 +562,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 		$result = mysql_query("SELECT * FROM Usuario WHERE ID_Usuario = '$usuario'");
 		$row = mysql_fetch_array($result);
 		
-		echo "<form method='POST' action='AdminEditarPerfil.php?usuario=$usuario' onsubmit='return Validar_CodigoPostal();'>
+		echo "<form method='POST' action='AdminEditarPerfil.php?usuario=$usuario''>
 				<div style='height:350px;width:auto;overflow-y: scroll;'>
 					<table class='default'>
 						<tr> 
@@ -561,12 +599,95 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
                     </div>
                       	<table class='alternative'>
                           	<tr>
-							<td width='30%'></td>
-                              	<td width='10%' colspan='4'><input type='submit' name='DetallesTarea' value='MODIFICAR'></a></td>
-								<td width='25%'></td>
+								<td width='30%'></td>
+                              	<td width='20%' colspan='2'><input type='submit' name='EliminarUsuario' value='ELIMINAR'></a></td>
+								<td width='15%'><input type='submit' name='DetallesTarea' value='MODIFICAR'></td>
+								<td width='30%'></td>
                           	</tr>
                       	</table>
 					</form> ";	
 	}
 }
+//---------------------------------------Modificar_PassAdmin-------------------------------------------------
+function Modificar_PassAdmin($ID_Usuario){
+if(isset($_POST['accion'])){
+	ConectarDB();
+
+	if($_POST['Pass_Nuevo'] == $_POST['Pass_Nuevo_Conf']){
+
+	
+					$s = "select * from Usuario where ID_Usuario = '".$ID_Usuario."'";
+					$r = mysql_query($s) or die(mysql_error());
+					$tupla = mysql_fetch_array($r) or die(mysql_error());
+					
+					if($tupla['Password_Usuario'] == $_POST['Password_Usuario']){
+					
+					$sql = "UPDATE Usuario SET Password_Usuario='".$_POST['Pass_Nuevo']."'
+					WHERE ID_Usuario = '".$ID_Usuario."'" ;
+					
+					$resultado = mysql_query($sql) or die(mysql_error());
+				     header('location: /Admin.php');
+					
+					}
+					
+					else{
+					?>
+				<script language="javascript"> alert("PASSWORD INCORRECTO."); </script>
+			<?php
+				}					
+}
+
+else{
+echo "Los nuevos passwords no coinciden";
+}
+}
+echo 			"<form name='FormModificar_Pass' id='FormModificar_Pass' onsubmit='return Validar_NuevoPass()' action='AdminEditarPass.php' method='post'>
+					
+					<div style='height:350px;width:auto;overflow-y: scroll;'>
+                    	<table class='default'>
+                        	<tr>
+                              	<td>PASSWORD ACTUAL:</td>
+                               	<td><input type='password' required name= 'Password_Usuario' id = 'Password_Usuario' placeholder='Password actual'/></td>
+							</tr>
+							<tr>
+								<td>PASSWORD NUEVO:</td>
+								<td><input type='password' required name= 'Pass_Nuevo' id='Pass_Nuevo' placeholder='Password nuevo'/></td>
+							</tr>	
+							<tr>
+								<td>PASSWORD NUEVO CONFIRMACION:</td>
+								<td><input type='password' required name= 'Pass_Nuevo_Conf' id='Pass_Nuevo_Conf' placeholder='Confirmacion del nuevo password'/></td>
+                      		</tr>
+						</table>
+						
+						
+						<table class='alternative'>
+                          	<tr>
+							<td width='30%'></td>
+                              	<td width='10%' colspan='4'><input type='submit' name='accion' value='MODIFICAR'></a></td>
+								<td width='25%'></td>
+                          	</tr>
+                      	</table>
+						
+						
+					</form>  ";                    						
+}
+//---------------------------------------Baja_Usuario-------------------------------------------------
+function Baja_Usuario($ID_Usuario){
+	ConectarDB();
+
+		$sql = "select * from Usuario where ID_Usuario= '".$ID_Usuario."'";
+		echo $sql;
+        $resultado = mysql_query($sql) or die(mysql_error());
+		$res = mysql_fetch_array($resultado);
+        if (mysql_num_rows($resultado) == 1){
+			$sql_delete="DELETE FROM Usuario where ID_Usuario = '".$ID_Usuario."'";
+			$resul_delete = mysql_query($sql_delete) or die("?No se ha podido eliminar el registro!");
+			header('location: /AdminGestorUsuarios.php');
+		}
+		else
+		{
+		}
+
+}//fin Baja_Usuario
+
 ?>
