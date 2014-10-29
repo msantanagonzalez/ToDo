@@ -253,7 +253,8 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 			//$proyecto = $_POST['proyecto'];
 			$usuario = $_POST['usuario'];
 			$tarea = $_POST['tarea'];
-			mysql_query("UPDATE Tarea SET Descripcion_Tarea='".$_POST['descripcion']."', Etiqueta_Tarea='".$_POST['etiqueta']."', Prioridad_Tarea='".$_POST['prioridad']."', Fecha_Inicio_Real='".$_POST['rFechaInicio']."', Fecha_Fin_Real='".$_POST['rFechaFin']."', Nombre_Proyecto ='".$_POST['proyecto']."' WHERE ID_Usuario = '$usuario' AND Nombre_Tarea = '$tarea'");		
+			$proyecto = $_POST['proyecto'];
+			mysql_query("UPDATE Tarea SET Descripcion_Tarea='".$_POST['descripcion']."', Etiqueta_Tarea='".$_POST['etiqueta']."', Prioridad_Tarea='".$_POST['prioridad']."', Fecha_Inicio_Real='".$_POST['rFechaInicio']."', Fecha_Fin_Real='".$_POST['rFechaFin']."', Nombre_Proyecto ='$proyecto' WHERE ID_Usuario = '$usuario' AND Nombre_Tarea = '$tarea'");		
 		}else{
 			$tarea = $_GET['tarea'];
 			$usuario = $_GET['usuario'];
@@ -309,11 +310,11 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 								<td></td>
                            		<td>Proyecto:</td>
                               	<td colspan='3'>
-								<select disabled>";
+								<select name='proyecto' disabled>";
 									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
-									echo "<option value='NULL' name='proyecto'>-</option>";
+									echo "<option selected value='$proyecto'> $proyecto </option>";
 									while($row = mysql_fetch_array($result))
-										echo "<option value='".$row['Nombre_Proyecto']."' name='proyecto'> '".$row['Nombre_Proyecto']."' </option>";
+										echo "<option value='".$row['Nombre_Proyecto']."'> '".$row['Nombre_Proyecto']."' </option>";
 								echo "</select>
 										
                           		</td>
@@ -387,11 +388,11 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							<tr>
                            		<td>Proyecto:</td>
                               	<td colspan='3'>
-								<select disabled>";
+								<select name='proyecto'>";
 									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
-									echo "<option value='NULL' name='proyecto'>-</option>";
+									echo "<option selected value='$proyecto'> $proyecto </option>";
 									while($row = mysql_fetch_array($result))
-										echo "<option value='".$row['Nombre_Proyecto']."' name='proyecto'> '".$row['Nombre_Proyecto']."' </option>";
+										echo "<option value='".$row['Nombre_Proyecto']."'> '".$row['Nombre_Proyecto']."' </option>";
 								echo "</select>
 										
                           		</td>
