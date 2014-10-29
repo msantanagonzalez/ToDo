@@ -321,7 +321,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							
                 		</table>
                  	</div>
-                      	<div align='center'><br><input type='submit' name='DetallesTarea' value='MODIFICAR' onclick='return Validar_EstadoTarea()'></div>
+                      	<div align='center' style='margin-top:1em'><input type='submit' name='DetallesTarea' value='MODIFICAR' onclick='return Validar_EstadoTarea()'></div>
 						</form>	";
 	}
 	
@@ -395,7 +395,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							
                 		</table>
                  	</div>
-                   	<div align='center'><br><input type='submit' name='EditarTarea' value='GUARDAR' onclick='return Validar_EstadoTarea()'></div>
+                   	<div align='center' style='margin-top:1em'><input type='submit' name='EditarTarea' value='GUARDAR' onclick='return Validar_EstadoTarea()'></div>
 				</form>	";
 	}
 	
