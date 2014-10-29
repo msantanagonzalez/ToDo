@@ -308,12 +308,15 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							<tr>
 								<td></td>
                            		<td>Proyecto:</td>
-                              	<td colspan='3'><input type='text' disabled value=' ";
-									$result = mysql_query("select Nombre_Proyecto from Proyecto where ID_Usuario = '$ID_Usuario'");
+                              	<td colspan='3'>
+								<select disabled>";
+									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
 									echo "<option value='NULL' name='proyecto'>-</option>";
 									while($row = mysql_fetch_array($result))
 										echo "<option value='".$row['Nombre_Proyecto']."' name='proyecto'> '".$row['Nombre_Proyecto']."' </option>";
-                          	echo "</td>
+								echo "</select>
+										
+                          		</td>
                           	</tr>
 							
                 		</table>
@@ -383,12 +386,15 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 							
 							<tr>
                            		<td>Proyecto:</td>
-                              	<td colspan='3'><input type='text' value=' ";
-									$result = mysql_query("select Nombre_Proyecto from Proyecto where ID_Usuario = '$ID_Usuario'");
+                              	<td colspan='3'>
+								<select disabled>";
+									$result = mysql_query("SELECT Nombre_Proyecto FROM Proyecto WHERE ID_Usuario = '$usuario'");
 									echo "<option value='NULL' name='proyecto'>-</option>";
 									while($row = mysql_fetch_array($result))
 										echo "<option value='".$row['Nombre_Proyecto']."' name='proyecto'> '".$row['Nombre_Proyecto']."' </option>";
-                          	echo "</td>
+								echo "</select>
+										
+                          		</td>
 							</tr>
 							
                 		</table>
