@@ -41,7 +41,6 @@
 									  <h1 id="logo"><a>- EDITAR TAREA: <?php echo $tarea; ?> -</a></h1>
 						  </div></p></header>
 										<!--INICIO TABLA-->
-                                        	<br>
                                             <?php
 												$admin->Editar_Tarea();
 											?>

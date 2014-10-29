@@ -44,7 +44,6 @@
 									  <h1 id="logo"><a>- DETALLES TAREA: <?php echo $tarea; ?> -</a></h1>
 						  </div></p></header>
 										<!--INICIO TABLA-->
-                                        	<br>
                                             <?php
 												$admin->Detalles_Tarea();
 											?>
