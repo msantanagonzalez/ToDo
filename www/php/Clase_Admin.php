@@ -39,7 +39,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 			$proyecto = $_POST['proyecto'];
 			$prioridad = $_POST['prioridad'];
 			$usuario = $_GET['usuario'];
-			mysql_query("INSERT INTO Proyecto (Nombre_Proyecto, Prioridad_Proyeto) VALUES('$proyecto','$prioridad')");
+			mysql_query("INSERT INTO Proyecto(Nombre_Proyecto, ID_Usuario, Prioridad_Proyecto) VALUES('$proyecto', '$usuario', '$prioridad')");
 			$result = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p WHERE ID_Usuario = '$usuario' ORDER BY p.Prioridad_Proyecto");
 		}else{
 			$result = mysql_query("SELECT p.Nombre_Proyecto, p.ID_Usuario, (SELECT count(*) FROM Tarea t WHERE t.Nombre_Proyecto = p.Nombre_Proyecto AND t.ID_Usuario = p.ID_Usuario), p.Prioridad_Proyecto FROM Proyecto p ORDER BY p.Prioridad_Proyecto");
@@ -146,14 +146,14 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
 	// ------------------------------------------------------ AGREGAR PROYECTO --------------------------------------------------------------
 	public function Agregar_proyecto(){
 		ConectarDB();
-		if(isset($_POST['user'])){
-			$usuario = $_POST['usuario'];
-		}
+		
+			$usuario = $_GET['usuario'];
+		
 		echo "<form method='POST' action='AdminGestorProyectos.php?usuario=$usuario'>
 		<table class='default'>
         	<tr>
                	<td>T&Iacute;TULO:</td>
-				<td><input type='text' autofocus placeholder='$T&iacute;tulo deseado...' name='proyecto' value=''/></td>
+				<td><input type='text' autofocus required placeholder='T&iacute;tulo deseado...' name='proyecto' value=''/></td>
 				<td>PRIORIDAD:</td>
 				<td>
 					<select name='prioridad'>
@@ -600,6 +600,7 @@ case 4:echo "-";break;default:echo "-";} echo "</td>";
                           	<tr>
 								<td width='30%'></td>
                               	<td width='20%' colspan='2'><input type='submit' name='EliminarUsuario' value='ELIMINAR'></a></td>
+								<td width='15%'><a href='AdminAgregarProyecto.php?usuario=$usuario'><input type='button' name='user' value='AGREGAR PROYECTO'/></a></td>
 								<td width='15%'><input type='submit' name='DetallesTarea' value='MODIFICAR'></td>
 								<td width='30%'></td>
                           	</tr>
